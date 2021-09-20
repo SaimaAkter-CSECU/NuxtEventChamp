@@ -1,0 +1,101 @@
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+}
+
+.v-application .body-2, .v-application .subtitle-1, .v-application .subtitle-2 {
+  font-family: "Poppins" !important;
+}
+
+.v-application .text-h1, .v-application .text-h2, .v-application .text-h3, .v-application .text-h4, .v-application .text-h5, .v-application .text-h6 {
+  font-family: "Poppins" !important;
+}
+
+a {
+  color: inherit !important;
+  text-decoration: none;
+}
+
+body {
+  font-family: "Poppins" !important;
+  font-size: 90% !important;
+  line-height: 1.7;
+}
+body .container--fluid {
+  max-width: 90%;
+  margin: 0 auto;
+}
+
+.v-image__image {
+  background-size: 100% 100%;
+}
+
+section .section-title .v-divider {
+  max-width: 150px !important;
+  width: 150px !important;
+}
+section .btn-style {
+  border: 1px solid #eaeaea;
+  text-transform: uppercase;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 41px;
+  height: 41px;
+  background-color: #fff !important;
+}
+section .btn-style:hover {
+  background-color: #fb0 !important;
+  color: #fff !important;
+  border-color: #fb0;
+}
+section .btn-style:hover .v-icon {
+  color: #fff !important;
+}
+
+section#services .card-div .card-icon-div {
+  width: 115px;
+  height: 115px;
+  border: 2px solid #fb0;
+}
+section#services .card-div:hover .card-icon-div {
+  background: #fb0;
+}
+section#services .card-div:hover .card-icon-div .v-icon {
+  color: #fff !important;
+}
+
+section#eventStatus .img-div {
+  transition: all 0.4s ease-in-out;
+  background: rgba(0, 0, 0, 0.3);
+  width: 100%;
+  height: 100%;
+  cursor: pointer;
+}
+section#eventStatus .img-div .img-text-div {
+  width: 100%;
+  height: 100%;
+  border: 1px dashed white;
+}
+section#eventStatus .img-div:not(.on-hover) {
+  background: linear-gradient(to bottom, rgba(0, 0, 0, 0.3) 10%, rgba(2, 0, 5, 0) 24%, #60f 150%);
+  background-color: rgba(0, 0, 0, 0.3);
+}
+section#eventStatus .img-div.on-hover {
+  background: linear-gradient(to bottom, rgba(0, 0, 0, 0.3) 0, rgba(2, 0, 5, 0) 24%, #60f 250%);
+  background-color: rgba(0, 0, 0, 0);
+}
+
+section#latestPost .v-card__title:hover {
+  color: #fb0;
+}
+section#latestPost .swiper-button-prev, section#latestPost .swiper-button-next {
+  position: static;
+  min-height: 40px;
+  border: 1px solid #eaeaea;
+  align-self: end;
+}
+section#latestPost .swiper-button-prev::after, section#latestPost .swiper-button-next::after {
+  content: "";
+}/*# sourceMappingURL=variables.css.map */
