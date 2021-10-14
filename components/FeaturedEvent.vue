@@ -1,5 +1,5 @@
 <template>
-    <section id="featuredEvent" class="my-9">
+    <section id="featuredEvent" class="mt-9">
         <div class="container--fluid">
             <div class="section-title text-center">
                 <div class="text-h3">

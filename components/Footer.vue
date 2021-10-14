@@ -320,7 +320,6 @@
         background-size: cover;
         background-position: center;
         color: #fff;
-        margin-top: 90px;
         .footer-menu{
             .footer-menu-title{
                 font-size: 1.35rem;

@@ -24,6 +24,9 @@ body{
         margin: 0 auto; 
     }
 }
+.theme--light.v-btn:hover::before {
+    opacity: 0;
+}
 .v-image__image{
     background-size:100% 100%;
 }
@@ -38,6 +41,16 @@ section{
         .v-card__title{
             &:hover{
                 color: #fb0; 
+            }
+        }
+    }
+    .section-content{
+        .v-card{
+            .v-card__title{
+                font-weight: 600; 
+                &:hover{
+                    color: #fb0; 
+                }
             }
         }
     }
@@ -61,21 +74,29 @@ section{
     }
     .btn-style2{
         border: 1px solid #fb0;
-        background-color: #fb0 !important;
+        background-color: #fb0;
+        box-shadow: none !important; 
         color: #fff !important; 
         text-transform: uppercase;
         display: flex;
         justify-content: center;
         align-items: center;
-        min-height: 41px; 
-        height: 41px; 
+        // min-height: 41px; 
+        height: 45px !important;  
         &:hover{
             background-color: transparent !important; 
+            color: #fb0; 
+            box-shadow: none !important; 
             color: #fb0 !important;  
             .v-icon{
                 color: #fb0 !important; 
             }
         }  
+    }
+    .btn-style3{
+        &:hover{
+            background-color: #fff !important; 
+        }
     }
     .swiper-button-prev.btn-style, .swiper-button-next.btn-style{
         position: static;
@@ -86,7 +107,74 @@ section{
             content: ''; 
         }
     }
+}
+.btn-yellowish-style{
+    color: #fff !important;
+    background-color: #fb0 !important;
+    background: #fb0; 
+    border: 1px solid #fb0; 
+    letter-spacing: 0.5px;
+    &:hover{
+        color: #fb0 !important;
+        background-color: #fff !important;
+    }
+}
 
+
+section#header{
+    .menu-items{
+        letter-spacing: .2px; 
+        font-weight: 500; 
+        &:hover{
+            color: #fb0 !important;
+        }
+        .v-icon{
+            font-weight: 300; 
+            &:hover{
+                color: #fb0 !important;
+            }
+        }
+        
+    }
+    
+}
+.signInDialog{
+    .v-subheader{
+        cursor: pointer;
+        &:hover{
+            color: #fb0 !important; 
+        }
+    }
+}
+
+section#banner{
+    .banner-btn .v-btn{
+        border: 1px solid white;
+        background-color: transparent;
+        min-height: 50px;
+        min-width: 110px;
+        &:hover{
+            background-color: #fb0; 
+            color: white; 
+            border-color: #fb0;
+        }
+    }
+    .swiper-pagination-bullets{
+        bottom: 50px;
+        .swiper-pagination-bullet{
+            width: 1rem;
+            height: 1rem; 
+            margin: 5px; 
+            background: transparent;
+            border: 1px solid #fff;
+            border-radius: 50%;
+            opacity: 1 !important;
+        }
+        .swiper-pagination-bullet-active {
+            opacity: 1;
+            background: white !important;
+        }
+    }
 }
 section#services{
     .card-div{
@@ -123,6 +211,32 @@ section#eventStatus{
     .img-div.on-hover{
         background: linear-gradient(to bottom,rgba(0,0,0,0.3) 0,rgba(2,0,5,0) 24%,#60f 250%);
         background-color: rgba(0,0,0,0); 
+    }
+}
+
+section#upcomingEvent{
+    .filters{
+        .v-btn-toggle > .v-btn.v-btn--active {
+            color: inherit;
+            opacity: 1;
+            background-color: white !important;
+            border-color: #fb0 !important;
+            color: #fb0 !important;
+            box-shadow: none;
+        }
+        .v-btn-toggle{
+            .v-btn{
+                border-color: #fb0 !important;
+                &:hover{
+                    color: #fb0 !important;
+                    background-color: white !important; 
+                    border-color: #fb0 !important;
+                }
+                &:before{
+                    background-color: white; 
+                }
+            }
+        }
     }
 }
 
@@ -181,6 +295,94 @@ section#newsletter{
         }
         &.error--text{
             color: grey; 
+        }
+    }
+}
+
+
+
+
+.subPage{
+    background: #f6f6f6; 
+    .subPageBanner{
+        .v-overlay__content{
+            width: 100%; 
+            .backToHome{
+                &:hover{
+                    color: #fb0; 
+                }
+            }
+        }
+    }
+    .subPageContent{
+        margin-top: 90px;
+        margin-bottom: 90px;
+        .content-div{
+            .v-card__title{
+                word-break: break-word;
+                font-weight: 700; 
+                cursor: pointer;
+                &:hover{
+                    color: #fb0; 
+                }
+            }
+            .category-tags .v-btn{
+                background-color: #eaeaea;
+                color: #888;
+                font-size: .7692rem;
+                font-weight: 500;
+                height: 40px;
+                &:hover{
+                    color: #fff; 
+                    background-color: #fb0; 
+                }
+            }
+            .v-btn--fab-title{
+                font-weight: 600; 
+            }
+            .v-btn--fab{
+                width: 40px;
+                height: 40px;
+                line-height: 40px;
+                color: #fff;
+                background-color: #a9a8b3;
+                font-size: 1.077rem;
+                &:hover{
+                    background-color: #fb0; 
+                    color: #fff;
+                }
+            }
+            .photos-div{
+                .v-image{
+                    &:hover{ 
+                        cursor: pointer;
+                        .overlay{
+                            background-color: rgba(0,0,0,0.3); 
+                            width: 100%;
+                            height: 100%;
+                            cursor: pointer;
+                        }
+                    }
+                }
+            }
+            
+        }
+        .author-details{
+            color: #222; 
+            .author-title{
+                font-weight: 600; 
+                cursor: pointer; 
+                &:hover{
+                    color: #fb0; 
+                }
+            }
+            .author-social-icons{
+                color: #222; 
+                font-size: 1.25rem; 
+                &:hover{
+                    color: #fb0;
+                }
+            }
         }
     }
 }

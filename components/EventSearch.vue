@@ -28,6 +28,7 @@
                                     v-model="searchText"
                                     autocomplete="off"
                                     placeholder="e.g. event, meetup"
+                                    label="Event"
                                     outlined
                                 >
                                 </v-text-field>
@@ -121,6 +122,7 @@
                             >
                                 <v-btn
                                     class="btn-style2"
+                                    color= "secondary"
                                     block
                                     x-large
                                 >

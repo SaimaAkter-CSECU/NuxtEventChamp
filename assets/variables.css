@@ -27,6 +27,10 @@ body .container--fluid {
   margin: 0 auto;
 }
 
+.theme--light.v-btn:hover::before {
+  opacity: 0;
+}
+
 .v-image__image {
   background-size: 100% 100%;
 }
@@ -34,6 +38,9 @@ body .container--fluid {
 section .section-title .v-divider {
   max-width: 150px !important;
   width: 150px !important;
+}
+section .slider-card-div .v-card__title:hover {
+  color: #fb0;
 }
 section .btn-style {
   border: 1px solid #eaeaea;
@@ -48,10 +55,103 @@ section .btn-style {
 section .btn-style:hover {
   background-color: #fb0 !important;
   color: #fff !important;
-  border-color: #fb0;
+  border: 1px solid #fb0;
 }
 section .btn-style:hover .v-icon {
   color: #fff !important;
+}
+section .btn-style2 {
+  border: 1px solid #fb0;
+  background-color: #fb0;
+  box-shadow: none !important;
+  color: #fff !important;
+  text-transform: uppercase;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 45px !important;
+}
+section .btn-style2:hover {
+  background-color: transparent !important;
+  color: #fb0;
+  box-shadow: none !important;
+  color: #fb0 !important;
+}
+section .btn-style2:hover .v-icon {
+  color: #fb0 !important;
+}
+section .btn-style3:hover {
+  background-color: #fff !important;
+}
+section .swiper-button-prev.btn-style, section .swiper-button-next.btn-style {
+  position: static;
+  min-height: 40px;
+  border: 1px solid #eaeaea;
+  align-self: end;
+}
+section .swiper-button-prev.btn-style::after, section .swiper-button-next.btn-style::after {
+  content: "";
+}
+
+.btn-yellowish-style {
+  color: #fff !important;
+  background-color: #fb0 !important;
+  background: #fb0;
+  border: 1px solid #fb0;
+  letter-spacing: 0.5px;
+}
+.btn-yellowish-style:hover {
+  color: #fb0 !important;
+  background-color: #fff !important;
+}
+
+section#header .menu-items {
+  letter-spacing: 0.2px;
+  font-weight: 500;
+}
+section#header .menu-items:hover {
+  color: #fb0 !important;
+}
+section#header .menu-items .v-icon {
+  font-weight: 300;
+}
+section#header .menu-items .v-icon:hover {
+  color: #fb0 !important;
+}
+
+.signInDialog .v-subheader {
+  cursor: pointer;
+}
+.signInDialog .v-subheader:hover {
+  color: #fb0 !important;
+}
+
+section#banner .banner-btn .v-btn {
+  border: 1px solid white;
+  background-color: transparent;
+  min-height: 50px;
+  min-width: 110px;
+}
+section#banner .banner-btn .v-btn:hover {
+  background-color: #fb0;
+  color: white;
+  border-color: #fb0;
+}
+section#banner .swiper-pagination-bullets {
+  bottom: 50px;
+}
+section#banner .swiper-pagination-bullets .swiper-pagination-bullet {
+  width: 1rem;
+  height: 1rem;
+  margin: 5px;
+  background: transparent;
+  border: 1px solid #fff;
+  border-radius: 50%;
+  opacity: 1 !important;
+}
+section#banner .swiper-pagination-bullets .swiper-pagination-bullet-active {
+  opacity: 1;
+  background: white !important;
 }
 
 section#services .card-div .card-icon-div {
@@ -87,15 +187,153 @@ section#eventStatus .img-div.on-hover {
   background-color: rgba(0, 0, 0, 0);
 }
 
-section#latestPost .v-card__title:hover {
+section#upcomingEvent .filters .v-btn-toggle > .v-btn.v-btn--active {
+  color: inherit;
+  opacity: 1;
+  background-color: white !important;
+  border-color: #fb0 !important;
+  color: #fb0 !important;
+  box-shadow: none;
+}
+section#upcomingEvent .filters .v-btn-toggle .v-btn {
+  border-color: #fb0 !important;
+}
+section#upcomingEvent .filters .v-btn-toggle .v-btn:hover {
+  color: #fb0 !important;
+  background-color: white !important;
+  border-color: #fb0 !important;
+}
+section#upcomingEvent .filters .v-btn-toggle .v-btn:before {
+  background-color: white;
+}
+
+section#featuredEvent {
+  background-color: #f9f9f9;
+  padding-top: 80px;
+  padding-bottom: 80px;
+}
+section#featuredEvent .discount-div {
+  transform: rotate(-45deg);
+  margin-top: 23px;
+  width: 80px;
+  height: 30px;
+  text-align: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #fff !important;
+}
+
+section#eventSearch {
+  background-color: #f9f9f9;
+}
+section#eventSearch .v-text-field__details {
+  display: none;
+}
+
+section#popularVenu {
+  background: url("../assets/Images/Venu/venu-bg.png") no-repeat;
+  background-position: center center;
+  padding-top: 6rem;
+  padding-bottom: 6rem;
+  background-attachment: fixed;
+}
+
+section#newsletter {
+  background: url("../assets/Images/Newsletter/newsletter-bg.png") no-repeat;
+  background-position: center center;
+  padding-top: 6rem;
+  padding-bottom: 6rem;
+  background-attachment: fixed;
+}
+section#newsletter .v-input {
+  color: white !important;
+}
+section#newsletter .v-input fieldset {
+  border-color: white !important;
+}
+section#newsletter .v-input .v-label {
+  color: white;
+}
+section#newsletter .v-input input {
+  color: white;
+}
+section#newsletter .v-input .v-icon {
+  color: white !important;
+}
+section#newsletter .v-input.error--text {
+  color: grey;
+}
+
+.subPage {
+  background: #f6f6f6;
+}
+.subPage .subPageBanner .v-overlay__content {
+  width: 100%;
+}
+.subPage .subPageBanner .v-overlay__content .backToHome:hover {
   color: #fb0;
 }
-section#latestPost .swiper-button-prev, section#latestPost .swiper-button-next {
-  position: static;
-  min-height: 40px;
-  border: 1px solid #eaeaea;
-  align-self: end;
+.subPage .subPageContent {
+  margin-top: 90px;
+  margin-bottom: 90px;
 }
-section#latestPost .swiper-button-prev::after, section#latestPost .swiper-button-next::after {
-  content: "";
+.subPage .subPageContent .content-div .v-card__title {
+  word-break: break-word;
+  font-weight: 700;
+  cursor: pointer;
+}
+.subPage .subPageContent .content-div .v-card__title:hover {
+  color: #fb0;
+}
+.subPage .subPageContent .content-div .category-tags .v-btn {
+  background-color: #eaeaea;
+  color: #888;
+  font-size: 0.7692rem;
+  font-weight: 500;
+  height: 40px;
+}
+.subPage .subPageContent .content-div .category-tags .v-btn:hover {
+  color: #fff;
+  background-color: #fb0;
+}
+.subPage .subPageContent .content-div .v-btn--fab-title {
+  font-weight: 600;
+}
+.subPage .subPageContent .content-div .v-btn--fab {
+  width: 40px;
+  height: 40px;
+  line-height: 40px;
+  color: #fff;
+  background-color: #a9a8b3;
+  font-size: 1.077rem;
+}
+.subPage .subPageContent .content-div .v-btn--fab:hover {
+  background-color: #fb0;
+  color: #fff;
+}
+.subPage .subPageContent .content-div .photos-div .v-img {
+  cursor: pointer;
+}
+.subPage .subPageContent .content-div .photos-div .v-img:hover .overlay {
+  background-color: rgba(0, 0, 0, 0.3);
+  width: 100%;
+  height: 100%;
+}
+.subPage .subPageContent .author-details {
+  color: #222;
+}
+.subPage .subPageContent .author-details .author-title {
+  font-weight: 600;
+  cursor: pointer;
+}
+.subPage .subPageContent .author-details .author-title:hover {
+  color: #fb0;
+}
+.subPage .subPageContent .author-details .author-social-icons {
+  color: #222;
+  font-size: 1.25rem;
+}
+.subPage .subPageContent .author-details .author-social-icons:hover {
+  color: #fb0;
 }/*# sourceMappingURL=variables.css.map */

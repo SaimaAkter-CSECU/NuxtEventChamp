@@ -13,6 +13,7 @@
     "nuxt": "^2.15.7",
     "swiper": "^5.4.5",
     "vue-awesome-swiper": "^4.1.1",
+    "vue-light-gallery": "^1.0.1",
     "vuetify": "^2.5.5"
   },
   "devDependencies": {
