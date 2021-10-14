@@ -1,7 +1,7 @@
 <template>
     <div>
         <div class="section-title text-center">
-                <div class="text-h3">
+                <div class="text-md-h3 text-sm-h5 font-weight-bold">
                     Events of the Speaker
                 </div>
                 <div class="section-divider d-flex align-center justify-center my-9"> 

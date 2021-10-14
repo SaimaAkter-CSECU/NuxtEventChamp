@@ -1,97 +1,112 @@
 <template>
-    <section id="banner">
+    <section 
+      id="banner"
+      style="height: 100vh;"
+    >
         <div v-swiper="swiperOption" class="w-100 mx-auto relative">
             <div class="swiper-wrapper">
                 <div
                   class="swiper-slide"
                   :key="bannerEvent.id"
-                  v-for="bannerEvent in bannerEvents"
+                  v-for="bannerEvent in bannerEvents" 
                 >
-                <v-card class="slider-card-div">
+                <v-card 
+                  class="slider-card-div"
+                  style="max-height: 100vh; background-color: grey"
+                >
                     <v-img
-                    :src="bannerEvent.url"
-                    style="cursor: pointer; max-height: 100vh"
+                      :src="bannerEvent.url"
+                      style="cursor: pointer; height: 100vh"
                     >
                       <v-overlay
                         style="position: absolute; top:0; left: 0; right: 0; bottom: 0; cursor: default;"
                       >
                         <div class="d-flex flex-column justify-center align-center">
+                          <NuxtLink :to="{path: 'Events/Category/'+(bannerEvent.category).charAt(0).toUpperCase()+(bannerEvent.category).slice(1) }">
                             <v-btn
                               color="yellowish" 
-                              class="white--text mb-5 rounded-pill px-5 py-2" 
-                              height="50"
-                              min-width="110"
+                              class="white--text mb-5 rounded-pill px-5 " 
                             >
-                              {{bannerEvent.category}}
-                            </v-btn>
-                            <div 
-                              class="text-md-h2 text-sm-h4 font-weight-bold py-9"
-                              style="font-family: Poppins !important;"
+                              {{bannerEvent.category}} 
+                            </v-btn> 
+                          </NuxtLink>
+                          <div 
+                            class="text-md-h2 text-sm-h4 font-weight-bold py-9"
+                            style="font-family: Poppins !important;"
+                          >
+                            {{ bannerEvent.title }}
+                          </div>
+                          <div
+                            class="d-flex justify-center align-center"
+                          >
+                            <span
+                              class="pa-4 text-uppercase"
                             >
-                              {{ bannerEvent.title }}
-                            </div>
-                            <div
-                              class="d-flex justify-center align-center"
-                            >
-                              <span
-                                class="pa-4 text-uppercase"
+                              <v-icon
+                                color="yellowish"
+                                class="mr-3"
                               >
-                                <v-icon
-                                  color="yellowish"
-                                  class="mr-3"
-                                >
-                                  mdi-calendar-blank-outline
-                                </v-icon>
-                                <span>
-                                  {{ bannerEvent.date }}
-                                </span>
+                                mdi-calendar-blank-outline
+                              </v-icon>
+                              <span>
+                                {{ bannerEvent.date }}
                               </span>
-                              <span
-                                class="pa-4 text-uppercase"
+                            </span>
+                            <span
+                              class="pa-4 text-uppercase"
+                            >
+                              <v-icon
+                                color="yellowish"
+                                class="mr-3"
                               >
-                                <v-icon
-                                  color="yellowish"
-                                  class="mr-3"
-                                >
-                                  mdi-map-marker-outline
-                                </v-icon>
-                                <span>
+                                mdi-map-marker-outline
+                              </v-icon>
+                              <span
+                              >
+                                <NuxtLink :to="{path: 'Venues/Location/'+(bannerEvent.location).charAt(0).toUpperCase()+(bannerEvent.location).slice(1) }">
                                   {{ bannerEvent.location }}
-                                </span>
+                                </NuxtLink>
                               </span>
-                              <span
-                                class="pa-4 text-uppercase"
+                            </span>
+                            <span
+                              class="pa-4 text-uppercase"
+                            >
+                              <v-icon
+                                color="yellowish"
+                                class="mr-3"
                               >
-                                <v-icon
-                                  color="yellowish"
-                                  class="mr-3"
-                                >
-                                  mdi-map-legend
-                                </v-icon>
-                                <span
-                                  style="cursor:pointer;"
-                                  @click="goToVenue(bannerEvent.venueId)"
-                                >
+                                mdi-map-legend
+                              </v-icon>
+                              <span
+                                style="cursor:pointer;"
+                                @click="getVenue(bannerEvent.venueId)"
+                              >
+                                <NuxtLink :to="{path: 'Venues/Detail/'+(bannerEvent.venue).split(' ').join('-') }">
                                   {{ bannerEvent.venue }}
-                                </span>
+                                </NuxtLink>
                               </span>
-                            </div>
+                            </span>
+                          </div>
                             <div
                               class="pt-9 d-flex justify-center align-center banner-btn"
                             >
                               <v-btn
                                 class="py-3 px-5 mx-2 white--text text-uppercase rounded-pill"
-                                @click="goToEvent(bannerEvent.id)"
+                                @click="getEvent(bannerEvent.id)"
                               >
-                                Details
+                                <NuxtLink :to="{path: 'Events/Detail/'+(bannerEvent.title).split(' ').join('-') }">
+                                  Details
+                                </NuxtLink>
                               </v-btn>
-                              <v-btn
-                                v-show="!(bannerEvent.cost == 'Free')"
-                                class="py-3 px-5 mx-2 white--text text-uppercase rounded-pill"
-                                @click="goToEvent(bannerEvent.id)"
-                              >
-                                Buy ticket
-                              </v-btn>
+                              <NuxtLink :to="{path: 'Events/Detail/'+(bannerEvent.title).split(' ').join('-') }">
+                                <v-btn
+                                  v-show="!(bannerEvent.cost == 'Free')"
+                                  class="py-3 px-5 mx-2 white--text text-uppercase rounded-pill"
+                                  @click="getEvent(bannerEvent.id)"
+                                >
+                                  Buy ticket
+                                </v-btn>
+                              </NuxtLink>
                             </div>
                         </div>
                       </v-overlay>
@@ -114,7 +129,7 @@
           id: 1,
           title: "Table Mountain Cableway",
           date: "April 14, 2022",
-          location: "Cape Town",
+          location: "CapeTown",
           venueId: "2",
           venue: "Table Mountain",
           catId: 12,
@@ -126,7 +141,7 @@
           id: 2,
           title: "CA After Party",
           date: "February 14, 2022",
-          location: "New York",
+          location: "NewYork",
           venueId: "3",
           venue: "Victory Club",
           catId: 9,
@@ -150,7 +165,7 @@
       swiperOption: {
         slidesPerView: 1,
         allowTouchMove: false,
-        loop: true,
+        loop: false,
         // autoplay: {
         //   delay: 5000
         // },
@@ -162,12 +177,12 @@
       },
     }),
     methods: {
-      goToEvent(i){
-        console.log(i);
+      async getEvent(id){
+          localStorage.setItem("eventId", id);
       },
-      goToVenue(x){
-        console.log(x);
-      }
+      async getVenue(venueId){
+          localStorage.setItem("venueId", venueId);
+      },
     },
   };
 </script>

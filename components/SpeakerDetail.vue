@@ -15,7 +15,7 @@
                             <div class="venue-details">
                             <v-img
                                 :src="speaker.url"
-                                height="650px"
+                                
                             ></v-img>
                             <div
                                 class="pa-8"
@@ -173,6 +173,7 @@
                                     <v-row>
                                         <v-col
                                             col="12"
+                                            md="12"
                                             sm="12"
                                             xs="12"
                                         >
@@ -184,6 +185,8 @@
                                                 outlined
                                             ></v-textarea>
                                         </v-col>
+                                    </v-row>
+                                    <v-row>
                                         <v-col
                                             col="12"
                                             md="4"
@@ -227,6 +230,8 @@
                                                 outlined
                                             ></v-text-field>
                                         </v-col>
+                                    </v-row>
+                                    <v-row>
                                         <v-col
                                             col="12"
                                             md="12"

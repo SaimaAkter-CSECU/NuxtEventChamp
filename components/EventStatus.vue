@@ -13,28 +13,28 @@
                     :key="status.id"
                 >
                     <v-hover v-slot="{ hover }">
-                        <v-img
-                            height="238px"
-                            :src="status.url"
-                            @click="goToSearchPage()"
-                            class="rounded-lg"
-                            
-                        >
-                            <div
-                                width= "100%"
-                                height="100%"
-                                class="img-div rounded-lg pa-3"
-                                v-bind:class= "{ 'on-hover' : hover}" 
-                            > 
+                        <NuxtLink to="Events"> 
+                            <v-img
+                                height="238px"
+                                :src="status.url"
+                                class="rounded-lg"
+                            >
                                 <div
-                                    class="text-h4 rounded-lg white--text text-uppercase d-flex flex-column justify-center align-center img-text-div"
-                                >
-                                    {{status.name}}
-                                    <br />
-                                    <strong>Events</strong>
+                                    width= "100%"
+                                    height="100%"
+                                    class="img-div rounded-lg pa-3"
+                                    v-bind:class= "{ 'on-hover' : hover}" 
+                                > 
+                                    <div
+                                        class="text-h4 rounded-lg white--text text-uppercase d-flex flex-column justify-center align-center img-text-div"
+                                    >
+                                        {{status.name}}
+                                        <br />
+                                        <strong>Events</strong>
+                                    </div>
                                 </div>
-                            </div>
-                        </v-img>
+                            </v-img>
+                        </NuxtLink>
                     </v-hover>
                 </v-col>
             </v-row>

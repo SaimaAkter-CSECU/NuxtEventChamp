@@ -74,7 +74,6 @@
                                     >
                                         <a :href="speaker.facebookLink" target="_blank">
                                             <v-icon
-                                                small
                                                 color="white"
                                                 class="mr-2"
                                             >
@@ -83,7 +82,6 @@
                                         </a>
                                         <a :href="speaker.instagramLink" target="_blank">
                                             <v-icon
-                                                small
                                                 color="white"
                                                 class="mr-2"
                                             >
@@ -92,7 +90,6 @@
                                         </a>
                                         <a :href="speaker.twitterLink" target="_blank">
                                             <v-icon
-                                                small
                                                 color="white"
                                                 class="mr-2"
                                             >
@@ -101,7 +98,6 @@
                                         </a>
                                         <a :href="speaker.websiteLink" target="_blank">
                                             <v-icon
-                                                small
                                                 color="white"
                                                 class="mr-2"
                                             >

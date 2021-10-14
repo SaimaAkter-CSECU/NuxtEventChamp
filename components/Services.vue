@@ -1,11 +1,11 @@
 <template>
     <section id="services" class="py-9">
-        <div class="container--fluid">
-            <div class="section-title text-center">
+        <div class="container--fluid my-9">
+            <div class="section-title text-center py-9">
                 <div class="text-h3">
                     Why Choose <span class="yellowish--text">Eventchamp?</span>
                 </div>
-                <div class="section-divider d-flex align-center justify-center my-9"> 
+                <div class="section-divider d-flex align-center justify-center my-7"> 
                     <v-divider></v-divider>
                     <v-icon
                         class="mx-2"
@@ -20,7 +20,7 @@
                     <div class="subtitle-1 font-weight-regular grey--text lighten-1">Because our digital story started with our dreams integrated manually.</div>
                 </div>
             </div>
-            <div class="section-content">
+            <div class="section-content pb-9">
                 <v-row class="mx-0 mb-5">
                     <v-col
                         cols="12"

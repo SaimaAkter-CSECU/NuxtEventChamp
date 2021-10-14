@@ -1,11 +1,11 @@
 <template>
     <section id="latestPost" class="py-9">
-        <div class="container--fluid">
-            <div class="section-title text-center">
+        <div class="container--fluid mt-9">
+            <div class="section-title text-center pt-9">
                 <div class="text-h3">
                     Latest <span class="yellowish--text">Posts</span>
                 </div>
-                <div class="section-divider d-flex align-center justify-center my-9"> 
+                <div class="section-divider d-flex align-center justify-center my-7"> 
                     <v-divider></v-divider>
                     <v-icon
                         class="mx-2"
@@ -22,7 +22,7 @@
                     </div>
                 </div>
             </div>
-            <div class="section-content">
+            <div class="section-content py-9">
                 <div v-swiper="swiperOption" class="w-5/6 ml-auto relative" :loadtheme="false">
                     <div class="swiper-wrapper">
                         <div class="swiper-slide" :key="latestPost.id" v-for="latestPost in latestPosts">
@@ -32,24 +32,29 @@
                             >
                                 <v-img
                                     :src="latestPost.url"
-                                    @click="goToEvent(latestPost.id)"
-                                    style="cursor:pointer; max-height: 391px; "
                                     class="d-flex align-end rounded-lg"
                                 >
-                                    <v-btn
-                                        color="white"
-                                        class="yellowish--text mb-5 ml-5 rounded-pill"
-                                        @click="goToEventCategory(latestPost.catId)"
-                                    >
-                                        {{latestPost.category}}
-                                    </v-btn>
+                                    <NuxtLink :to="{path: 'Blogs/Category/'+(latestPost.category).charAt(0).toUpperCase()+(latestPost.category).slice(1) }">
+                                        <v-btn
+                                            color="white"
+                                            class="yellowish--text mb-5 ml-5 rounded-pill"
+                                            width="auto"
+                                            min-height="32px"
+                                            style="letter-spacing:0px;" 
+                                            elevation="0"   
+                                        >
+                                            {{latestPost.category}}
+                                        </v-btn>
+                                    </NuxtLink>
                                 </v-img>
                                 <v-card-title
-                                    @click="goToEvent(latestPost.id)"
+                                    @click="getBlog(latestPost.id)"
                                     style="cursor:pointer"
-                                    class="font-weight-normal pl-0"
+                                    class="pl-0" 
                                 >
-                                    {{latestPost.title}}
+                                    <NuxtLink :to="{path: 'Events/Detail/'+(latestPost.title).split(' ').join('-')}">
+                                        {{latestPost.title}}
+                                    </NuxtLink>
                                 </v-card-title>
                                 <v-card-text
                                     class="pl-0"
@@ -93,12 +98,14 @@
                                 mdi-chevron-left
                             </v-icon>
                         </div>
-                        <v-btn 
-                            class="btn-style mx-5 px-6 grey--text rounded-lg"
-                            elevation="0"
-                        >
-                            All Blog
-                        </v-btn>
+                        <NuxtLink to="Blogs">
+                            <v-btn 
+                                class="btn-style mx-5 px-6 grey--text rounded-lg"
+                                elevation="0"
+                            >
+                                All Blog
+                            </v-btn>    
+                        </NuxtLink>
                         <div 
                             class="swiper-button-next btn-style py-0 px-6 rounded-lg"
                         >
@@ -209,12 +216,9 @@
             },
         }),
         methods:{
-            async goToEvent(id){
-                console.log(id); 
+            async getBlog(blogId){
+                localStorage.setItem("blogId", blogId); 
             }, 
-            async goToEventCategory(id){
-                console.log(id); 
-            }
         }
     }
 </script>

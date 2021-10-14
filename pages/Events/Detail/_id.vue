@@ -15,7 +15,7 @@
         }),
         mounted() {
         //   console.log(this.$route.params.id);
-          console.log(localStorage.getItem('eventId')); 
+          // console.log(localStorage.getItem('eventId')); 
         },
     }
 </script> 

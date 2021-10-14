@@ -104,11 +104,13 @@
                                             xs="2"
                                             class="pl-0"
                                         >
-                                            <v-img
-                                                :src="latestPost.url"
-                                                max-width="100%"
-                                                @click="goToEvent(latestPost.id)"
-                                            ></v-img>
+                                            <NuxtLink :to="{path: 'Events/Detail/'+(latestPost.title).split(' ').join('-')}">
+                                                <v-img
+                                                    :src="latestPost.url"
+                                                    max-width="100%"
+                                                    @click="getBlog(latestPost.id)"
+                                                ></v-img>
+                                            </NuxtLink>
                                         </v-col>
                                         <v-col
                                             cols="10"
@@ -118,9 +120,11 @@
                                         >
                                             <v-list-item-title 
                                                 class="text-p mb-3"
-                                                @click="goToEvent(latestPost.id)"
+                                                @click="getBlog(latestPost.id)"
                                             >
-                                                {{latestPost.title}}
+                                                <NuxtLink :to="{path: 'Events/Detail/'+(latestPost.title).split(' ').join('-')}">
+                                                    {{latestPost.title}}
+                                                </NuxtLink>
                                             </v-list-item-title>
                                             <v-list-item-subtitle class="white--text d-flex align-center">
                                                 <v-icon
@@ -306,9 +310,9 @@
             ],
         }), 
         methods:{
-            async goToEvent(i){
-                console.log(i);
-            }
+            async getBlog(blogId){
+                localStorage.setItem("blogId", blogId); 
+            }, 
         }
     }
 </script>

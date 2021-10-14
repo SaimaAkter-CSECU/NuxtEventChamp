@@ -577,8 +577,8 @@
             // this.event = this.blogs.find(x => x.id == localStorage.getItem('eventId') ); 
             // console.log(this.event[0]);
             this.event = this.event[0]; 
-            console.log(this.event); 
-            console.log(this.event.photos); 
+            // console.log(this.event); 
+            // console.log(this.event.photos); 
         },
     }
 </script>

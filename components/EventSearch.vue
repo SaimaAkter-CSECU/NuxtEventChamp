@@ -120,14 +120,16 @@
                                 sm="6"
                                 xs="12" 
                             >
-                                <v-btn
-                                    class="btn-style2"
-                                    color= "secondary"
-                                    block
-                                    x-large
-                                >
-                                    Search
-                                </v-btn>
+                                <NuxtLink to="Events">
+                                    <v-btn
+                                        class="btn-yellowish-style"
+                                        block
+                                        x-large
+                                        elevation="0"
+                                    >
+                                        Search
+                                    </v-btn>
+                                </NuxtLink>
                             </v-col>
                         </v-row>
                     </v-col>

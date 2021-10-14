@@ -3,7 +3,7 @@
         <div class="container--fluid">
             <div class="section-title text-center">
                 <div class="text-h3 white--text">
-                    Newsletter
+                    Newsletter 
                 </div>
                 <div class="section-divider d-flex align-center justify-center my-9"> 
                     <v-divider class="grey"></v-divider>
@@ -27,11 +27,11 @@
                 <v-form
                     ref="form"
                     v-model="valid"
-                >
+                > 
                     <v-row class="mx-0 white--text">
                         <v-col
                             cols="12"
-                            md="8"
+                            md="9"
                             sm="12"
                         >
                             <v-row class="mx-0">
@@ -39,6 +39,8 @@
                                     cols="12"
                                     md="6"
                                     sm="12"
+                                    class="pb-0"
+                                    style="padding-bottom: 0 !important;"
                                 >
                                     <v-text-field
                                         v-model="email"
@@ -54,6 +56,8 @@
                                     cols="12"
                                     md="6"
                                     sm="12"
+                                    class="pb-0"
+                                    style="padding-bottom: 0 !important;"
                                 >
                                     <v-text-field
                                         v-model="name"
@@ -83,13 +87,12 @@
                         </v-col>
                         <v-col
                             cols="12"
-                            md="4"
+                            md="3"
                             sm="12"
                         >
                             <v-btn
                                 x-large
-                                color="transparent"
-                                class="btn-style2"
+                                class="btn-yellowish-style"
                                 block
                                 @click="validate"
                             >

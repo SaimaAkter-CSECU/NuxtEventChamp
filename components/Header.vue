@@ -42,7 +42,7 @@
                             class="text-uppercase text-p menu-items"
                             v-bind:class="textColor"
                         >
-                            <NuxtLink class="px-4 py-3" to="/Calender">Calender</NuxtLink>
+                            <NuxtLink class="px-4 py-3" to="/Calendar">Calendar</NuxtLink>
                         </div>
                         <div 
                             class="text-uppercase text-p menu-items"
@@ -88,6 +88,8 @@
                                         v-bind="attrs"
                                         v-on="on"
                                         rounded-pill
+                                        style="letter-spacing: 0px; font-weight: 400;"
+                                        elevation="0"
                                     >
                                         Sign In
                                     </v-btn>

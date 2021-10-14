@@ -1,7 +1,7 @@
 <template>
     <section id="upcomingEvent" class="py-9">
-        <div class="container--fluid">
-            <div class="section-title text-center">
+        <div class="container--fluid my-9">
+            <div class="section-title text-center pt-9">
                 <div class="text-h3">
                     Upcoming <span class="yellowish--text">Events</span>
                 </div>
@@ -22,15 +22,19 @@
                     </div>
                 </div>
             </div>
-            <div class="section-content">
+            <div class="section-content pb-9">
                 <div class="d-flex justify-center align-center my-9 py-9 filters">
                     <v-btn-toggle
                         v-model="toggle_one"
                         mandatory
                     >
                         <v-btn
-                            class="white--text rounded-pill px-5 py-2 mx-1"
+                            class="white--text rounded-pill px-4 mx-1"
                             color="yellowish"
+                            width="auto"
+                            min-height="32px"
+                            style="letter-spacing:0px;" 
+                            elevation="0" 
                             @click="changeContent(0)"
                         >
                             All
@@ -38,6 +42,10 @@
                         <v-btn
                             class="white--text rounded-pill px-5 py-2 mx-1"
                             color="yellowish"
+                            width="auto"
+                            min-height="32px"
+                            style="letter-spacing:0px;" 
+                            elevation="0"
                             @click="changeContent(category.id)"
                             v-for="category in listCategory"
                             :key="category.id"
@@ -49,6 +57,10 @@
                                 <v-btn
                                     class="white--text rounded-pill px-5 py-2 mx-1"
                                     color="yellowish"
+                                    width="auto"
+                                    min-height="32px"
+                                    style="letter-spacing:0px;" 
+                                    elevation="0"
                                     v-bind="attrs"
                                     v-on="on"
                                 >
@@ -71,57 +83,6 @@
                         </v-menu>
                     </v-btn-toggle>
                 </div>
-                <!-- <div class="filters d-flex justify-center align-center my-9">
-                    <div 
-                        class="" 
-                    >
-                        <v-btn
-                            class="btn-style2 btn-style3 rounded-pill px-5 py-2 mx-1"
-                            color="yellowish"
-                            @click="changeContent(0)"
-                        >
-                            All
-                        </v-btn>
-                    </div>
-                    <div 
-                        class="" 
-                        v-for="category in listCategory"
-                        :key="category.id"
-                    >
-                        <v-btn
-                            class="btn-style2 btn-style3 rounded-pill px-5 py-2 mx-1"
-                            color="yellowish"
-                            @click="changeContent(category.id)"
-                        >
-                            {{category.cat}}
-                        </v-btn>
-                    </div>
-                    <div 
-                        class="" 
-                        v-show="restCategory.length"
-                    >
-                        <v-menu offset-y>
-                            <template v-slot:activator="{ on, attrs }">
-                                <v-btn
-                                    class="btn-style2 btn-style3 rounded-pill px-5 py-2 mx-1"
-                                    color="yellowish"
-                                    v-bind="attrs"
-                                    v-on="on"
-                                >
-                                    More
-                                </v-btn>
-                            </template>
-                            <v-list>
-                                <v-list-item
-                                    v-for="restCat in restCategory"
-                                    :key="restCat.id"
-                                >
-                                    <v-list-item-title>{{ restCat.cat }}</v-list-item-title>
-                                </v-list-item>
-                            </v-list>
-                        </v-menu>
-                    </div>
-                </div> -->
                 <div class="content">
                     <v-row class="mx-0">
                         <v-col
@@ -143,14 +104,22 @@
                                         style="height: 100%"
                                     >
                                         <v-btn
-                                            class="yellowish--text text-uppercase rounded-pill"
+                                            class="yellowish--text px-4 rounded-pill"
                                             color="white"
+                                            width="auto"
+                                            min-height="32px"
+                                            style="letter-spacing:0px; cursor: default;" 
+                                            elevation="0"
                                         >
                                             {{event.status}}
                                         </v-btn>
                                         <v-btn
-                                            class="white--text rounded-pill"
+                                            class="white--text px-4 rounded-pill"
+                                            width="auto"
+                                            min-height="32px"
                                             color="yellowish"
+                                            style="letter-spacing:0px; cursor: default;" 
+                                            elevation="0" 
                                         >
                                             <span v-show="!(event.cost == 'Free')">$</span> 
                                             {{event.cost}}
@@ -159,19 +128,27 @@
                                 </v-img>
                                 <v-card-title
                                     class="pl-0"
+                                    @click="getEvent(event.id)"
                                 >
-                                    {{event.title}}
+                                    <NuxtLink :to="{path: 'Events/Detail/'+(event.title).split(' ').join('-')}">
+                                        {{event.title}}
+                                    </NuxtLink>
                                 </v-card-title>
                                 <div
                                     class="d-flex flex-wrap pl-0"
                                 >
-                                    <v-btn
-                                        class="white--text px-3 rounded-pill"
-                                        color="yellowish" 
-                                        @click="goToCategory(event.catId)"
-                                    >
-                                        {{event.category}}
-                                    </v-btn>
+                                    <NuxtLink :to="{path: 'Events/Category/'+(event.category).charAt(0).toUpperCase()+(event.category).slice(1) }">
+                                        <v-btn
+                                            class="white--text px-4 rounded-pill"
+                                            width="auto"
+                                            min-height="32px"
+                                            color="yellowish"
+                                            style="letter-spacing:0px;" 
+                                            elevation="0" 
+                                        >
+                                            {{event.category}}
+                                        </v-btn>
+                                    </NuxtLink>
 
                                     <span class="d-flex align-center mx-3 py-2">
                                         <v-icon
@@ -188,7 +165,11 @@
                                         >
                                             mdi-map-marker-outline
                                         </v-icon>
-                                        <span class="text--secondary ml-2">{{event.location}}</span>
+                                        <span class="text--secondary ml-2">
+                                            <NuxtLink :to="{path: 'Venues/Location/'+(event.location).charAt(0).toUpperCase()+(event.location).slice(1) }">
+                                                {{event.location}}
+                                            </NuxtLink>
+                                        </span>
                                     </span>
 
                                 </div>
@@ -202,15 +183,17 @@
                     </v-row>
                 </div>
                 <div
-                    class="d-flex justify-center"
+                    class="d-flex justify-center my-9"
                 >
-                    <v-btn 
-                        class="btn-style mx-5 px-6 grey--text rounded-lg"
-                        height="50px"
-                        elevation="0"
-                    >
-                        All Events
-                    </v-btn>
+                    <NuxtLink to="Events">
+                        <v-btn 
+                            class="btn-style mx-5 px-6 grey--text rounded-lg"
+                            height="50px"
+                            elevation="0"
+                        >
+                            All Events
+                        </v-btn>
+                    </NuxtLink>
                 </div>
             </div>
         </div>
@@ -492,8 +475,8 @@
 
         }), 
         methods:{
-            async goToCategory(i){
-                console.log(i);
+            async getEvent(id){
+                localStorage.setItem("eventId", id); 
             }, 
             
             async changeContent(i){

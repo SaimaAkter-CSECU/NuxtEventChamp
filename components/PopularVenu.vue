@@ -1,11 +1,11 @@
 <template>
     <section id="popularVenu">
         <div class="container--fluid white--text">
-            <div class="section-title text-center">
+            <div class="section-title text-center pb-9">
                 <div class="text-h3 white--text">
                     Popular <span class="yellowish--text">Venues</span>
                 </div>
-                <div class="section-divider d-flex align-center justify-center my-9"> 
+                <div class="section-divider d-flex align-center justify-center my-7"> 
                     <v-divider class="grey"></v-divider>
                     <v-icon
                         class="mx-2"
@@ -30,29 +30,34 @@
                         <div class="swiper-slide" :key="popularVenue.id" v-for="popularVenue in popularVenues">
                             <v-card
                                 elevation="0"
-                                class="slider-card-div"
+                                class="slider-card-div white--text"
                                 color="transparent"
                             >
                                 <v-img
                                     :src="popularVenue.url"
-                                    @click="goToEvent(popularVenue.id)"
-                                    style="cursor:pointer; max-height: 391px; "
                                     class="d-flex align-end rounded-lg"
                                 >
-                                    <v-btn
-                                        color="white"
-                                        class="yellowish--text text-uppercase mb-5 ml-5 rounded-pill"
-                                        @click="goToEventCategory(popularVenue.venuId)"
-                                    >
-                                        {{popularVenue.venu}}
-                                    </v-btn>
+                                    <NuxtLink :to="{path: 'Venues/Location/'+(popularVenue.venu).charAt(0).toUpperCase()+(popularVenue.venu).slice(1) }">
+                                        <v-btn
+                                            color="white"
+                                            class="yellowish--text mb-5 ml-5 rounded-pill"
+                                            width="auto"
+                                            min-height="32px"
+                                            style="letter-spacing:0px;" 
+                                            elevation="0"    
+                                        >
+                                            {{popularVenue.venu}}
+                                        </v-btn>
+                                    </NuxtLink>
                                 </v-img>
                                 <v-card-title
-                                    @click="goToEvent(popularVenue.id)"
+                                    @click="getVenue(popularVenue.id)"
                                     style="cursor:pointer"
-                                    class="font-weight-normal pl-0 white--text"
+                                    class="font-weight-normal pl-0"
                                 >
-                                    {{popularVenue.title}}
+                                    <NuxtLink :to="{path: 'Venues/Detail/'+(popularVenue.title).split(' ').join('-') }">
+                                        {{popularVenue.title}}
+                                    </NuxtLink>
                                 </v-card-title>
                                 <v-card-text
                                     class="pl-0 white--text"
@@ -73,13 +78,15 @@
                                 mdi-chevron-left
                             </v-icon>
                         </div>
-                        <v-btn 
-                            class="btn-style mx-5 px-6 white--text rounded-lg"
-                            color="transparent"
-                            style="border: 1px solid #eaeaea !important;"
-                        >
-                            All Venues
-                        </v-btn>
+                        <NuxtLink to="Venues">
+                            <v-btn 
+                                class="btn-style mx-5 px-6 white--text rounded-lg"
+                                color="transparent"
+                                style="border: 1px solid #eaeaea !important;"
+                            >
+                                All Venues
+                            </v-btn>
+                        </NuxtLink>
                         <div 
                             class="swiper-button-next btn-style py-0 px-6 rounded-lg transparent"
                             style="border: 1px solid #eaeaea !important;"
@@ -199,12 +206,9 @@
             },
         }),
         methods:{
-            async goToEvent(id){
-                console.log(id); 
+            async getVenue(id){
+                localStorage.setItem("venueId", id); 
             }, 
-            async goToEventCategory(id){
-                console.log(id); 
-            }
         }
     }
 </script>

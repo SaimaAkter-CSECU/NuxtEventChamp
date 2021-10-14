@@ -1,7 +1,7 @@
 <template>
     <section id="featuredEvent" class="mt-9">
-        <div class="container--fluid">
-            <div class="section-title text-center">
+        <div class="container--fluid my-9">
+            <div class="section-title text-center pb-9">
                 <div class="text-h3">
                     Featured <span class="yellowish--text">Events</span>
                 </div>
@@ -27,38 +27,45 @@
                     <div class="swiper-wrapper">
                         <div class="swiper-slide" :key="featuredEvent.id" v-for="featuredEvent in featuredEvents">
                             <v-card class="slider-card-div">
-                                <v-img
-                                    :src="featuredEvent.url"
-                                    @click="goToEvent(featuredEvent.id)"
-                                    style="cursor:pointer; max-height: 391px; "
-                                    
-                                >
-                                    <div
-                                        v-show="featuredEvent.discount"
-                                        class="body-2 yellowish--text discount-div"
-                                        background-color="white"
-                                        style="cursor: default"
+                                <NuxtLink :to="{path: 'Events/Detail/'+(featuredEvent.title).split(' ').join('-')}">
+                                    <v-img
+                                        :src="featuredEvent.url"
+                                        @click="getEvent(featuredEvent.id)"
+                                        style="cursor:pointer; max-height: 391px; "
+                                        
                                     >
-                                        Discount
-                                    </div>
-                                </v-img>
+                                        <div
+                                            v-show="featuredEvent.discount"
+                                            class="body-2 yellowish--text discount-div"
+                                            background-color="white"
+                                            style="cursor: default"
+                                        >
+                                            Discount
+                                        </div>
+                                    </v-img>
+                                </NuxtLink>
                                 <v-card-title
-                                    @click="goToEvent(featuredEvent.id)"
+                                    @click="getEvent(featuredEvent.id)"
                                     style="cursor:pointer"
-                                    class="font-weight-normal"
                                 >
-                                    {{featuredEvent.title}}
+                                    <NuxtLink :to="{path: 'Events/Detail/'+(featuredEvent.title).split(' ').join('-')}">
+                                        {{featuredEvent.title}}
+                                    </NuxtLink>
                                 </v-card-title>
                                 <v-card-actions
                                     class="px-4"
                                 >
                                     <v-btn
                                         class="white--text rounded-pill px-4"
-                                        elevation="0"
                                         color="yellowish" 
-                                        @click="goToEventCategory(featuredEvent.catId)"
+                                        width="auto"
+                                        min-height="32px"
+                                        style="letter-spacing:0px;" 
+                                        elevation="0" 
                                     >
-                                        {{featuredEvent.category}}
+                                        <NuxtLink :to="{path: 'Events/Category/'+(featuredEvent.category).charAt(0).toUpperCase()+(featuredEvent.category).slice(1) }">
+                                            {{featuredEvent.category}}
+                                        </NuxtLink>
                                     </v-btn>
                                     <div class="ml-7">
                                         <v-icon
@@ -97,7 +104,13 @@
                                         >
                                             mdi-map-marker-outline
                                         </v-icon>
-                                        <span class="text--secondary">{{featuredEvent.location}}</span>
+                                        <span 
+                                            class="text--secondary"
+                                        >
+                                            <NuxtLink :to="{path: 'Venues/Location/'+(featuredEvent.location).charAt(0).toUpperCase()+(featuredEvent.location).slice(1) }">
+                                                {{featuredEvent.location}}
+                                            </NuxtLink>
+                                        </span>
                                     </div>
                                     <div>
                                         <v-icon
@@ -126,12 +139,14 @@
                                 mdi-chevron-left
                             </v-icon>
                         </div>
-                        <v-btn 
-                            class="btn-style mx-5 px-6 grey--text rounded-lg"
-                            elevation="0"
-                        >
-                            All Events
-                        </v-btn>
+                        <NuxtLink to="Events">
+                            <v-btn 
+                                class="btn-style mx-5 px-6 grey--text rounded-lg"
+                                elevation="0"
+                            >
+                                All Events
+                            </v-btn> 
+                        </NuxtLink>
                         <div 
                             class="swiper-button-next btn-style py-0 px-6 rounded-lg"
                         >
@@ -264,12 +279,12 @@
             },
         }),
         methods:{
-            async goToEvent(id){
-                console.log(id); 
+            async getEvent(id){
+                localStorage.setItem("eventId", id);
             }, 
-            async goToVenuCategory(id){
-                console.log(id); 
-            }
+            // async getVenue(venueId){
+            //     localStorage.setItem("venueId", venueId);
+            // }, 
         }
     }
 </script>
