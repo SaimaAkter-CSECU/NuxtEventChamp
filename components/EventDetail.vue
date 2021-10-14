@@ -112,6 +112,377 @@
                         </div>
                         </div>
 
+                        <!-- Event Details 2 -->
+                        <div class="white rounded-lg my-8">
+                            <div
+                                class="filters white"
+                            >
+                                <v-tabs
+                                    v-model="tabs"
+                                    fixed-tabs
+                                    centered
+                                    background-color="transparent"
+                                    color="yellowish"
+                                >
+                                    <v-tabs-slider></v-tabs-slider>
+                                    <v-tab
+                                        href="#speakers"
+                                        class="py-7"
+                                    >
+                                        <span>Speakers</span>
+                                    </v-tab>
+                                    <v-tab
+                                        href="#schedule"
+                                        class="py-7"
+                                    >
+                                        <span>Schedule</span>
+                                    </v-tab>
+                                    <v-tab
+                                        href="#tickets"
+                                        class="py-7"
+                                        v-show="!(event.cost == 'Free')" 
+                                    >
+                                        <span>Tickets</span>
+                                    </v-tab>
+                                    <v-tab
+                                        href="#faq"
+                                        class="py-7"
+                                    >
+                                        <span>FAQ</span>
+                                    </v-tab>
+                                    <v-tab
+                                        href="#contact"
+                                        class="py-7"
+                                    >
+                                        <span>Contact</span>
+                                    </v-tab>
+                                </v-tabs>
+                            
+                            </div>
+                            <div
+                                class="pa-8"
+                            >
+                                <v-tabs-items v-model="tabs">
+                                    <v-tab-item
+                                        value="speakers"
+                                    >
+                                        <div class="pa-5">
+                                            <v-row
+                                                class="relatedSpeakers"
+                                            >
+                                                <v-col
+                                                    col="12"
+                                                    md="6"
+                                                    sm="6"
+                                                    xs="12"
+                                                    v-for="speaker in event.speakers"
+                                                    :key="speaker.id"
+                                                >
+                                                    <v-img
+                                                        :src="speaker.url"
+                                                        class="rounded-md"
+                                                    >
+                                                        <div 
+                                                            class="overlay pa-9 rounded-md"
+                                                        >
+                                                            <v-card
+                                                                color="transparent"
+                                                                elevation="0"
+                                                                class="rounded-md"
+                                                            >
+                                                                <v-card-title
+                                                                    class="mb-3 px-4 white--text"
+                                                                    @click="getSpeaker(speaker.id)"
+                                                                >
+                                                                    <NuxtLink :to="{path: '../../Speakers/Detail/'+(speaker.name).split(' ').join('-') }">
+                                                                        {{speaker.name}}
+                                                                    </NuxtLink>
+                                                                </v-card-title>
+                                                                <v-card-subtitle
+                                                                    class="subtitle-2 font-weight-bold white--text text-uppercase px-4"
+                                                                    color="white"
+                                                                >
+                                                                    {{speaker.designation}}
+                                                                </v-card-subtitle>
+                                                                <v-card-text
+                                                                    class="white--text px-4 visibleText mt-5 mb-3"
+                                                                >
+                                                                    {{speaker.description}}
+                                                                </v-card-text>
+                                                                <v-card-actions
+                                                                    class="px-4 visibleText"
+                                                                >
+                                                                    <a :href="speaker.facebookLink" target="_blank">
+                                                                        <v-icon
+                                                                            color="white"
+                                                                            class="mr-2"
+                                                                        >
+                                                                            mdi-facebook
+                                                                        </v-icon>
+                                                                    </a>
+                                                                    <a :href="speaker.instagramLink" target="_blank">
+                                                                        <v-icon
+                                                                            color="white"
+                                                                            class="mr-2"
+                                                                        >
+                                                                            mdi-instagram
+                                                                        </v-icon>
+                                                                    </a>
+                                                                    <a :href="speaker.twitterLink" target="_blank">
+                                                                        <v-icon
+                                                                            color="white"
+                                                                            class="mr-2"
+                                                                        >
+                                                                            mdi-twitter
+                                                                        </v-icon>
+                                                                    </a>
+                                                                    <a :href="speaker.websiteLink" target="_blank">
+                                                                        <v-icon
+                                                                            color="white"
+                                                                            class="mr-2"
+                                                                        >
+                                                                            mdi-web-sync
+                                                                        </v-icon>
+                                                                    </a>
+                                                                </v-card-actions>
+                                                            </v-card>
+                                                        </div>
+                                                    </v-img>
+                                                </v-col>
+                                            </v-row>
+                                        </div>
+                                    </v-tab-item>
+
+                                    <v-tab-item
+                                        value="schedule"
+                                    >
+                                        <div
+                                            class="innerTab"
+                                        >
+                                            <v-tabs
+                                                v-model="tab"
+                                                background-color="yellowish"
+                                                dark
+                                            >
+                                                <v-tab
+                                                    v-for="schedule in event.schedules"
+                                                    :key="schedule.id"
+                                                >
+                                                        {{ schedule.title }}
+                                                </v-tab>
+                                            </v-tabs>
+
+                                            <v-tabs-items v-model="tab">
+                                                <v-tab-item
+                                                    v-for="schedule in event.schedules"
+                                                    :key="schedule.id"
+                                                >
+                                                    <v-expansion-panels
+                                                        class="pa-5"
+                                                        focusable
+                                                    >
+                                                        <v-expansion-panel
+                                                            class="my-1"
+                                                            elevation="0"
+                                                            v-for="timeBreakdown in schedule.timeBreakdown"
+                                                            :key="timeBreakdown.id"
+                                                        >
+                                                            <v-expansion-panel-header
+                                                                class="grey--text"
+                                                                elevation="0"
+                                                            >
+                                                                <div class="d-flex align-center flex-wrap">
+                                                                    <span class="mr-3">{{timeBreakdown.date}}</span>
+                                                                    <span class="mr-5">{{timeBreakdown.time}}</span>
+                                                                    <span>{{timeBreakdown.title}}</span>
+                                                                </div>
+                                                                
+                                                                <template v-slot:actions>
+                                                                    <v-icon color="yellowish">
+                                                                        $expand
+                                                                    </v-icon>
+                                                                </template>
+                                                            </v-expansion-panel-header>
+                                                            <v-expansion-panel-content
+                                                                class="text-p grey--text mt-3"
+                                                            >
+                                                                {{timeBreakdown.task}}
+                                                            </v-expansion-panel-content>
+                                                        </v-expansion-panel>
+                                                    </v-expansion-panels>
+                                                </v-tab-item>
+                                            </v-tabs-items>
+
+                                        </div>
+                                    </v-tab-item>
+
+                                    <v-tab-item
+                                        value="tickets"
+                                    >
+                                        <div class="pa-5">
+                                            <v-row>
+                                                <v-col
+                                                    col="12"
+                                                    md="6"
+                                                    sm="6"
+                                                    xs="12" 
+                                                    v-for="ticket in event.tickets"
+                                                    :key="ticket.id"
+                                                    class="ticket-div"
+                                                >
+                                                    <v-card
+                                                        color="white"
+                                                        style="border:1px solid #fb0 !important;"
+                                                        class="rounded-lg d-flex flex-column justify-center pa-5"
+                                                        elevation="0"
+                                                    >
+                                                        <v-card-title
+                                                            class="d-flex justify-center black--text mb-2"
+                                                        >
+                                                            {{ticket.title}}
+                                                        </v-card-title>
+                                                        <v-card-subtitle
+                                                            class="text-h3 yellowish--text font-weight-bold d-flex justify-center"
+                                                        >
+                                                            ${{ticket.cost}}
+                                                        </v-card-subtitle>
+                                                        <v-card-text
+                                                            v-for="feature in ticket.features"
+                                                            :key="feature.id"
+                                                            class="py-1"
+                                                        >
+                                                            <div class="d-flex justify-center">
+                                                                <v-icon
+                                                                    small
+                                                                    color="yellowish"
+                                                                    class="mr-2"
+                                                                >
+                                                                    mdi-check-circle
+                                                                </v-icon>
+                                                                <span>{{feature.feature}}</span>
+                                                            </div>
+                                                        </v-card-text>
+                                                        <v-card-text class="pb-0">
+                                                            <v-select
+                                                                :items="quantity"
+                                                                outlined
+                                                                offset-y
+                                                                label="Quantity"
+                                                            ></v-select>
+                                                        </v-card-text>
+                                                        <v-card-actions class="pt-0 d-flex justify-center">
+                                                            <NuxtLink to="/">
+                                                                <v-btn
+                                                                    class="btn-yellowish-style rounded-md"
+                                                                    style="letter-spacing:0px;"
+                                                                    elevation="0"
+                                                                    x-large 
+                                                                >
+                                                                    buy now
+                                                                </v-btn>
+                                                            </NuxtLink>
+                                                        </v-card-actions>
+                                                    </v-card>
+                                                </v-col>
+                                            </v-row>
+                                        </div>
+                                    </v-tab-item>
+
+                                    <v-tab-item
+                                        value="faq"
+                                    >
+                                        <v-expansion-panels
+                                            class="pa-5"
+                                            focusable
+                                        >
+                                            <v-expansion-panel
+                                                class="my-1"
+                                                elevation="0"
+                                                v-for="faq in event.faqs"
+                                                :key="faq.id"
+                                            >
+                                                <v-expansion-panel-header
+                                                    class="grey--text"
+                                                    elevation="0"
+                                                >
+                                                    {{faq.question}}
+                                                    <template v-slot:actions>
+                                                        <v-icon color="yellowish">
+                                                            $expand
+                                                        </v-icon>
+                                                    </template>
+                                                </v-expansion-panel-header>
+                                                <v-expansion-panel-content
+                                                    class="text-p grey--text mt-3"
+                                                >
+                                                    {{faq.answer}}
+                                                </v-expansion-panel-content>
+                                            </v-expansion-panel>
+                                        </v-expansion-panels>
+                                    </v-tab-item>
+
+                                    <v-tab-item
+                                        value="contact"
+                                    >
+                                        <div
+                                            class="pa-5"
+                                        >
+                                            <v-form
+                                                ref="form"
+                                                v-model="valid"
+                                                lazy-validation
+                                            >
+                                                <v-text-field
+                                                    v-model="name"
+                                                    :rules="inputRules"
+                                                    label="Name"
+                                                    required
+                                                    block
+                                                    outlined
+                                                ></v-text-field>
+                                                <v-text-field
+                                                    v-model="email"
+                                                    :rules="emailRules"
+                                                    label="Email"
+                                                    required
+                                                    outlined
+                                                ></v-text-field>
+                                                <v-text-field
+                                                    v-model="subject"
+                                                    :rules="inputRules"
+                                                    label="Subject"
+                                                    required
+                                                    block
+                                                    outlined
+                                                ></v-text-field>
+                                                <v-textarea
+                                                    name="commentField" 
+                                                    :rules="inputRules"
+                                                    rows="4"
+                                                    label="Your Comment"
+                                                    outlined
+                                                ></v-textarea>    
+                                                <v-checkbox
+                                                    v-model="checkbox"
+                                                    label="I consent to Arven Studio collecting my details through this form."
+                                                ></v-checkbox>
+
+                                                <v-btn
+                                                    :disabled="!valid"
+                                                    class="my-5 mr-4 btn-yellowish-style rounded-md"
+                                                    @click="validate"
+                                                    elevation="0"
+                                                    x-large 
+                                                >
+                                                    Submit
+                                                </v-btn>
+                                            </v-form>
+                                        </div>
+                                    </v-tab-item>
+                                </v-tabs-items>
+                            </div>
+                        </div>
+
                         <!-- Photos -->
                         <div 
                             class="photos-div white rounded-lg my-8"
@@ -169,100 +540,7 @@
                                         </no-ssr> -->
                             </div>
                         </div>
-                        
-                        <!-- Related Blogs -->
-                        <!-- <div class="white rounded-lg my-8">
-                            <div
-                                class="py-7 pl-8 text-h6"
-                                style="border-bottom: 1px solid #eaeaea"
-                            >
-                                Related Events
-                            </div>
-                            <div
-                                class="pa-8"
-                            >
-                                <v-row
-                                    class="align-center"
-                                >
-                                    <v-col
-                                        col="12"
-                                        sm="6"
-                                        xs="12"
-                                        v-for="relatedBlog in relatedBlogs"
-                                        :key="relatedBlog.id"
-                                    >
-                                        <v-card
-                                            elevation="0"
-                                        >
-                                            <v-img
-                                                :src="relatedBlog.url"
-                                                class="rounded-lg"
-                                                style="cursor:pointer;"
-                                            >
-                                                <div
-                                                    class="d-flex align-end pa-7"
-                                                    style="width:100%; height: 100%;"
-                                                >
-                                                    <NuxtLink :to="{path: '../Category/'+(relatedBlog.category).charAt(0).toUpperCase()+(relatedBlog.category).slice(1) }">
-                                                        <v-btn
-                                                            class="rounded-pill yellowish--text text-uppercase" 
-                                                            color="white"
-                                                            style="font-weight: 400; letter-spacing: 0.25px" 
-                                                        >
-                                                            {{relatedBlog.category}}
-                                                        </v-btn>
-                                                    </NuxtLink>
-                                                </div>
-                                            </v-img>
-                                            <v-card-title
-                                                class="px-0 pb-0 d-inline-block text-truncate"
-                                                style="max-width: 100%"
-                                                @click="geTBlog(relatedBlog.id)"
-                                            >
-                                                <NuxtLink :to="{path: '../Detail/'+(relatedBlog.title).split(' ').join('-') }">
-                                                    {{relatedBlog.title}}
-                                                </NuxtLink>
-                                            </v-card-title>
-                                            <v-card-text
-                                                class="px-0 pt-0 mb-3"
-                                            >
-                                                <div class="d-flex align-center">
-                                                    <div
-                                                        class="mr-4 d-flex align-center"
-                                                    >
-                                                        <v-icon
-                                                            color="yellowish"
-                                                            small
-                                                            class="mr-2"
-                                                        >
-                                                            mdi-calendar-blank-outline
-                                                        </v-icon>
-                                                        <span class="body-2">
-                                                            {{relatedBlog.date}}
-                                                        </span>
-                                                    </div>
-                                                    <div
-                                                        class="d-flex align-center"
-                                                    >
-                                                        <v-icon
-                                                            color="yellowish"
-                                                            small
-                                                            class="mr-2"
-                                                        >
-                                                            mdi-chat-outline
-                                                        </v-icon>
-                                                        <span class="body-2">
-                                                            {{relatedBlog.comment}} comment 
-                                                        </span>
-                                                    </div>
-                                                </div>
-                                            </v-card-text>
-                                        </v-card>
-                                    </v-col>
-                                </v-row>
-                            </div>
-                        </div> -->
-                        
+
                         <!-- Add Comment -->
                         <div class="white rounded-lg my-8">
                             <div
@@ -398,6 +676,8 @@
         name: 'EventDetail',
         data: () => ({
             index: null, 
+            tabs: null,
+            tab: null, 
             event: [
                 {
                     id: 1, 
@@ -448,6 +728,273 @@
                             question: 'Proin lacinia placerat est et euismod?',
                             answer: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse non posuere dolor, ut fermentum enim. Nullam quis molestie purus. Nam leo turpis, scelerisque in convallis ac, accumsan a lacus. Sed laoreet arcu in odio auctor commodo qisque et mi lacinia.',
                         },
+                    ],
+                    tickets: [
+                        {
+                            id: 1,
+                            title: 'Personal',
+                            cost: 29,
+                            features: [
+                                {
+                                    id: 1, 
+                                    feature: 'Lorem ipsum dolor sit amet.'
+                                },
+                                {
+                                    id: 2, 
+                                    feature: 'Lorem ipsum dolor sit amet.'
+                                },
+                                {
+                                    id: 3, 
+                                    feature: 'Lorem ipsum dolor sit amet.'
+                                },
+                                {
+                                    id: 4, 
+                                    feature: 'Usu dictas imperdiet eu.'
+                                }
+                            ]
+                        },
+                        {
+                            id: 2,
+                            title: 'Business',
+                            cost: 99,
+                            features: [
+                                {
+                                    id: 1, 
+                                    feature: 'Lorem ipsum dolor sit amet.'
+                                },
+                                {
+                                    id: 2, 
+                                    feature: 'Lorem ipsum dolor sit amet.'
+                                },
+                                {
+                                    id: 3, 
+                                    feature: 'Lorem ipsum dolor sit amet.'
+                                },
+                                {
+                                    id: 4, 
+                                    feature: 'Usu dictas imperdiet eu.'
+                                }
+                            ]
+                        },
+                        {
+                            id: 3,
+                            title: 'Premium',
+                            cost: 149,
+                            features: [
+                                {
+                                    id: 1, 
+                                    feature: 'Lorem ipsum dolor sit amet.'
+                                },
+                                {
+                                    id: 2, 
+                                    feature: 'Lorem ipsum dolor sit amet.'
+                                },
+                                {
+                                    id: 3, 
+                                    feature: 'Lorem ipsum dolor sit amet.'
+                                },
+                                {
+                                    id: 4, 
+                                    feature: 'Usu dictas imperdiet eu.'
+                                }
+                            ]
+                        },
+                        {
+                            id: 4,
+                            title: 'Platinum',
+                            cost: 299,
+                            features: [
+                                {
+                                    id: 1, 
+                                    feature: 'Lorem ipsum dolor sit amet.'
+                                },
+                                {
+                                    id: 2, 
+                                    feature: 'Lorem ipsum dolor sit amet.'
+                                },
+                                {
+                                    id: 3, 
+                                    feature: 'Lorem ipsum dolor sit amet.'
+                                },
+                                {
+                                    id: 4, 
+                                    feature: 'Usu dictas imperdiet eu.'
+                                }
+                            ]
+                        }
+                    ],
+                    speakers: [
+                        {
+                            id: 1, 
+                            name: 'Roberto Berry',
+                            designation: 'CEO & FOUNDER',
+                            description: 'Lorem ipsum dolor sit amet, voluptua iracundia disputationi an pri, his utinam principes dignissim ad ne nec dolore oblique nusquam.',
+                            facebookLink: 'https://www.facebook.com/',
+                            instagramLink: 'https://www.instagram.com/',
+                            twitterLink: 'https://twitter.com/',
+                            websiteLink: 'https://www.facebook.com', 
+                            url: 'https://demo.gloriathemes.com/eventchamp/demo/wp-content/uploads/2018/11/speaker-13-350x350.jpg',
+                        },
+                        {
+                            id: 2, 
+                            name: 'Saul R. Lopez',
+                            designation: 'CEO & FOUNDER',
+                            description: 'Lorem ipsum dolor sit amet, voluptua iracundia disputationi an pri, his utinam principes dignissim ad ne nec dolore oblique nusquam.',
+                            facebookLink: 'https://www.facebook.com/',
+                            instagramLink: 'https://www.instagram.com/',
+                            twitterLink: 'https://twitter.com/',
+                            websiteLink: 'https://www.facebook.com', 
+                            url: 'https://demo.gloriathemes.com/eventchamp/demo/wp-content/uploads/2018/11/speaker-12-350x350.jpg',
+                        },
+                        {
+                            id: 3, 
+                            name: 'Thomas Childers',
+                            designation: 'manager',
+                            description: 'Lorem ipsum dolor sit amet, voluptua iracundia disputationi an pri, his utinam principes dignissim ad ne nec dolore oblique nusquam.',
+                            facebookLink: 'https://www.facebook.com/',
+                            instagramLink: 'https://www.instagram.com/',
+                            twitterLink: 'https://twitter.com/',
+                            websiteLink: 'https://www.facebook.com', 
+                            url: 'https://demo.gloriathemes.com/eventchamp/demo/wp-content/uploads/2018/11/speaker-11-350x350.jpg',
+                        },
+                        {
+                            id: 4, 
+                            name: 'Frances B. Chandler',
+                            designation: 'analyst',
+                            description: 'Lorem ipsum dolor sit amet, voluptua iracundia disputationi an pri, his utinam principes dignissim ad ne nec dolore oblique nusquam.',
+                            facebookLink: 'https://www.facebook.com/',
+                            instagramLink: 'https://www.instagram.com/',
+                            twitterLink: 'https://twitter.com/',
+                            websiteLink: 'https://www.facebook.com', 
+                            url: 'https://demo.gloriathemes.com/eventchamp/demo/wp-content/uploads/2018/11/speaker-10-350x350.jpg',
+                        },
+                        {
+                            id: 5, 
+                            name: 'Melek Ozcan',
+                            designation: 'CEO & FOUNDER',
+                            description: 'Lorem ipsum dolor sit amet, voluptua iracundia disputationi an pri, his utinam principes dignissim ad ne nec dolore oblique nusquam.',
+                            facebookLink: 'https://www.facebook.com/',
+                            instagramLink: 'https://www.instagram.com/',
+                            twitterLink: 'https://twitter.com/',
+                            websiteLink: 'https://www.facebook.com', 
+                            url: 'https://demo.gloriathemes.com/eventchamp/demo/wp-content/uploads/2018/11/speaker-9-350x350.jpg',
+                        },
+                        {
+                            id: 6, 
+                            name: 'Mary Griffin',
+                            designation: 'designer',
+                            description: 'Lorem ipsum dolor sit amet, voluptua iracundia disputationi an pri, his utinam principes dignissim ad ne nec dolore oblique nusquam.',
+                            facebookLink: 'https://www.facebook.com/',
+                            instagramLink: 'https://www.instagram.com/',
+                            twitterLink: 'https://twitter.com/',
+                            websiteLink: 'https://www.facebook.com', 
+                            url: 'https://demo.gloriathemes.com/eventchamp/demo/wp-content/uploads/2018/11/speaker-13-350x350.jpg',
+                        },
+                    ],
+                    schedules: [
+                        {
+                            id: 1,
+                            title: 'Day 1',
+                            timeBreakdown: [
+                                {
+                                    id: 1,
+                                    date: 'November 17, 2019',
+                                    time: '12:00',
+                                    title: 'Lorem ipsum dolor sit amet.',
+                                    task: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse non posuere dolor, ut fermentum enim. Nullam quis molestie purus. Nam leo turpis, scelerisque in convallis ac, accumsan a lacus. Sed laoreet arcu in odio auctor commodo qisque et mi lacinia.',
+                                },
+                                {
+                                    id: 2,
+                                    date: 'November 17, 2019',
+                                    time: '12:00',
+                                    title: 'Lorem ipsum dolor sit amet.',
+                                    task: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse non posuere dolor, ut fermentum enim. Nullam quis molestie purus. Nam leo turpis, scelerisque in convallis ac, accumsan a lacus. Sed laoreet arcu in odio auctor commodo qisque et mi lacinia.',
+                                },
+                                {
+                                    id: 3,
+                                    date: 'November 17, 2019',
+                                    time: '12:00',
+                                    title: 'Lorem ipsum dolor sit amet.',
+                                    task: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse non posuere dolor, ut fermentum enim. Nullam quis molestie purus. Nam leo turpis, scelerisque in convallis ac, accumsan a lacus. Sed laoreet arcu in odio auctor commodo qisque et mi lacinia.',
+                                },
+                                {
+                                    id: 4,
+                                    date: 'November 17, 2019',
+                                    time: '12:00',
+                                    title: 'Lorem ipsum dolor sit amet.',
+                                    task: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse non posuere dolor, ut fermentum enim. Nullam quis molestie purus. Nam leo turpis, scelerisque in convallis ac, accumsan a lacus. Sed laoreet arcu in odio auctor commodo qisque et mi lacinia.',
+                                },
+                            ], 
+                        },
+                        {
+                            id: 2,
+                            title: 'Day 2',
+                            timeBreakdown: [
+                                {
+                                    id: 1,
+                                    date: 'November 17, 2019',
+                                    time: '12:00',
+                                    title: 'Lorem ipsum dolor sit amet.',
+                                    task: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse non posuere dolor, ut fermentum enim. Nullam quis molestie purus. Nam leo turpis, scelerisque in convallis ac, accumsan a lacus. Sed laoreet arcu in odio auctor commodo qisque et mi lacinia.',
+                                },
+                                {
+                                    id: 2,
+                                    date: 'November 17, 2019',
+                                    time: '12:00',
+                                    title: 'Lorem ipsum dolor sit amet.',
+                                    task: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse non posuere dolor, ut fermentum enim. Nullam quis molestie purus. Nam leo turpis, scelerisque in convallis ac, accumsan a lacus. Sed laoreet arcu in odio auctor commodo qisque et mi lacinia.',
+                                },
+                                {
+                                    id: 3,
+                                    date: 'November 17, 2019',
+                                    time: '12:00',
+                                    title: 'Lorem ipsum dolor sit amet.',
+                                    task: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse non posuere dolor, ut fermentum enim. Nullam quis molestie purus. Nam leo turpis, scelerisque in convallis ac, accumsan a lacus. Sed laoreet arcu in odio auctor commodo qisque et mi lacinia.',
+                                },
+                                {
+                                    id: 4,
+                                    date: 'November 17, 2019',
+                                    time: '12:00',
+                                    title: 'Lorem ipsum dolor sit amet.',
+                                    task: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse non posuere dolor, ut fermentum enim. Nullam quis molestie purus. Nam leo turpis, scelerisque in convallis ac, accumsan a lacus. Sed laoreet arcu in odio auctor commodo qisque et mi lacinia.',
+                                },
+                            ],
+                        },
+                        {
+                            id: 3,
+                            title: 'Day 3',
+                            timeBreakdown: [
+                                {
+                                    id: 1,
+                                    date: 'November 17, 2019',
+                                    time: '12:00',
+                                    title: 'Lorem ipsum dolor sit amet.',
+                                    task: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse non posuere dolor, ut fermentum enim. Nullam quis molestie purus. Nam leo turpis, scelerisque in convallis ac, accumsan a lacus. Sed laoreet arcu in odio auctor commodo qisque et mi lacinia.',
+                                },
+                                {
+                                    id: 2,
+                                    date: 'November 17, 2019',
+                                    time: '12:00',
+                                    title: 'Lorem ipsum dolor sit amet.',
+                                    task: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse non posuere dolor, ut fermentum enim. Nullam quis molestie purus. Nam leo turpis, scelerisque in convallis ac, accumsan a lacus. Sed laoreet arcu in odio auctor commodo qisque et mi lacinia.',
+                                },
+                                {
+                                    id: 3,
+                                    date: 'November 17, 2019',
+                                    time: '12:00',
+                                    title: 'Lorem ipsum dolor sit amet.',
+                                    task: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse non posuere dolor, ut fermentum enim. Nullam quis molestie purus. Nam leo turpis, scelerisque in convallis ac, accumsan a lacus. Sed laoreet arcu in odio auctor commodo qisque et mi lacinia.',
+                                },
+                                {
+                                    id: 4,
+                                    date: 'November 17, 2019',
+                                    time: '12:00',
+                                    title: 'Lorem ipsum dolor sit amet.',
+                                    task: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse non posuere dolor, ut fermentum enim. Nullam quis molestie purus. Nam leo turpis, scelerisque in convallis ac, accumsan a lacus. Sed laoreet arcu in odio auctor commodo qisque et mi lacinia.',
+                                },
+                            ],
+                        }
+
                     ],
                     photos: [
                         {
@@ -548,10 +1095,11 @@
                     category: 'Food'
                 }
             ],
-
+            quantity: [1,2,3,4,5,6,7,8,9,10], 
             valid: true,
             commentField: '', 
             name: '',
+            subject: '', 
             inputRules: [
                 v => !!v || 'This Field is Required',
                 v => (v && v.length <= 10) || 'Name must be less than 10 characters',
@@ -567,6 +1115,10 @@
         methods: {
             async geTEvent(id){
                 localStorage.setItem("eventId", id);
+                console.log(localStorage); 
+            },
+            async getSpeaker(id){
+                localStorage.setItem("speakerId", id);
                 console.log(localStorage); 
             },
             async validate () {

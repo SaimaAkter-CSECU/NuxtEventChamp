@@ -416,6 +416,44 @@ section#newsletter{
                     color: #fb0 !important;
                 }
             }
+            .v-tabs{
+                height: 80px; 
+                .v-tabs-bar{
+                    height: 80px; 
+                    .v-tab{
+                        border-right: 1px solid #eaeaea;
+                        border-bottom: 1px solid #eaeaea;
+                        box-sizing: border-box;
+                        span{
+                            color: #4a4a4a; 
+                        }
+                        &:hover{
+                            border-bottom: 2px solid #fb0;
+                            background-color: white; 
+                        }
+                    }
+                }   
+            }
+            .innerTab{
+                .v-tabs{
+                    height: 80px; 
+                    .v-tabs-bar{
+                        height: 80px; 
+                        .v-tab{
+                            border-right: 1px solid transparent;
+                            border-bottom: 1px solid transparent;
+                            box-sizing: border-box;
+                            span{
+                                color: white; 
+                            }
+                            &:hover{
+                                // broder-bottom: 2px solid #fb0;
+                                background-color: transparent;
+                            }
+                        }
+                    }   
+                }
+            }
         }
         .author-details{
             color: #222; 
