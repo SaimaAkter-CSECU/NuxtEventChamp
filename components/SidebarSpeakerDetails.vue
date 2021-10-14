@@ -1,12 +1,12 @@
 <template>
     <div
-        class="white event-details-div rounded-lg"
+        class="white speaker-details-div rounded-lg"
     >
         <div
             class="py-7 px-9 text-h6 d-flex justify-space-between align-center flex-wrap"
             style="border-bottom: 1px solid #eaeaea"
         >
-            <span>Event Details</span>
+            <span>Speaker Details</span>
             <span>
                 <span>
                     <v-btn
@@ -38,7 +38,7 @@
         >
             <div
                 class="py-5"
-                v-for="detail in eventDetails"
+                v-for="detail in speakerDetails"
                 :key="detail.id"
             >
                 <v-row
@@ -110,17 +110,18 @@
                         class="text-p grey--text font-weight-normal mb-1 d-flex align-center flex-wrap"
                     >
                         <a 
-                            :href="eventFacebook"
+                            :href="facebookLink"
                             class="mr-1" 
                         >
                             <v-icon
+                                small
                                 color="grey darken-1"
                             >
-                                mdi-alpha-f
+                                mdi-facebook
                             </v-icon>
                         </a>
                         <a 
-                            :href="eventInstagram"
+                            :href="instagramLink"
                             class="mr-2"
                         >
                             <v-icon
@@ -131,7 +132,7 @@
                             </v-icon>
                         </a>
                         <a 
-                            :href="eventTwitter"
+                            :href="twitterLink"
                             class="mr-2"
                         >
                             <v-icon
@@ -142,14 +143,14 @@
                             </v-icon>
                         </a>
                         <a 
-                            :href="eventYoutube"
+                            :href="websiteLink"
                             class="mr-2"
                         >
                             <v-icon
                                 color="grey darken-1"
                                 small
                             >
-                                mdi-youtube
+                                mdi-web-sync
                             </v-icon>
                         </a>
                     </div>
@@ -160,90 +161,62 @@
 </template>
 
 <script>
-    
-    export default {
-        name: 'SidebarEventDetails',
-        props: ['event'], 
-        data: () => ({
-            eventFacebook: '',
-            eventInstagram: '', 
-            eventYoutube: '', 
-            eventTwitter: '', 
-            whishCount: '', 
-            eventDetails: [],
-            
-        }),
-        mounted() {
-            // console.log(this.event); 
-            this.eventDetails= [
-                {
-                    id: 1,
-                    title: 'Start Date',
-                    value: this.event[0].startDate,
-                    icon: 'mdi-calendar-clock-outline', 
-                },
-                {
-                    id: 2,
-                    title: 'End Date',
-                    value: this.event[0].endDate,
-                    icon: 'mdi-calendar-clock-outline', 
-                },
-                {
-                    id: 3,
-                    title: 'Status',
-                    value: this.event[0].status,
-                    icon: 'mdi-check-circle-outline', 
-                },
-                {
-                    id: 4,
-                    title: 'Location',
-                    value: this.event[0].location,
-                    icon: 'mdi-map-marker-outline', 
-                },
-                {
-                    id: 5,
-                    title: 'Venue',
-                    value: this.event[0].venue,
-                    icon: 'mdi-map-marker-radius-outline', 
-                },
-                {
-                    id: 6,
-                    title: 'organizer',
-                    value: this.event[0].organizer,
-                    icon: 'mdi-account-outline', 
-                },
-                {
-                    id: 7,
-                    title: 'category',
-                    value: this.event[0].category,
-                    icon: 'mdi-folder-open-outline', 
-                },
-                {
-                    id: 8,
-                    title: 'address',
-                    value: this.event[0].address,
-                    icon: 'mdi-flag-outline', 
-                },
-                {
-                    id: 9,
-                    title: 'phone',
-                    value: this.event[0].phone,
-                    icon: 'mdi-phone-in-talk-outline', 
-                },
-                {
-                    id: 10,
-                    title: 'email',
-                    value: this.event[0].email,
-                    icon: 'mdi-email-outline', 
-                },
-                {
-                    id: 11,
-                    title: 'Remaining Tickets',
-                    value: this.event[0].remainingTickets,
-                    icon: 'mdi-ticket-percent-outline', 
-                },
-            ]
-            
-        },
-    }
+export default {
+    name: 'SidebarSpeakerDetails', 
+    props: ['speaker'],
+    data: () => ({
+        speakerDetails: [], 
+        facebookLink: '',
+        instagramLink: '',
+        twitterLink: '',
+        websiteLink: '', 
+        whishCount: 7, 
+    }),
+    mounted() {
+        console.log(this.speaker)
+        this.speakerDetails= [
+            {
+                id: 1,
+                title: 'Category',
+                value: this.speaker.designation,
+                icon: 'mdi-folder-open-outline', 
+            },
+            {
+                id: 2,
+                title: 'Location',
+                value: this.speaker.location,
+                icon: 'mdi-map-marker-outline', 
+            },
+            {
+                id: 3,
+                title: 'Address',
+                value: this.speaker.address,
+                icon: 'mdi-flag-outline', 
+            },
+            {
+                id: 4,
+                title: 'phone',
+                value: this.speaker.phone,
+                icon: 'mdi-phone-in-talk-outline', 
+            },
+            {
+                id: 5,
+                title: 'email',
+                value: this.speaker.email,
+                icon: 'mdi-email-outline', 
+            },
+            {
+                id: 6,
+                title: 'website',
+                value: this.speaker.website,
+                icon: 'mdi-web-sync', 
+            },
+        ];
+        this.facebookLink = this.speaker.facebookLink;
+        this.instagramLink = this.speaker.instagramLink;
+        this.twitterLink = this.speaker.twitterLink;
+        this.websiteLink = this.speaker.websiteLink;
+        this.whishCount = this.speaker.whishCount;
+    },
+}
 </script>

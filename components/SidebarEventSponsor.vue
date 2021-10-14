@@ -34,48 +34,7 @@
                     </div>
                 </v-col>
             </v-row>
-            <div
-                class="py-5"
-                v-for="detail in eventDetails"
-                :key="detail.id"
-            >
-                <v-row
-                    class="align-center"
-                    style="border-bottom: 1px solid #eaeaea"
-                >
-                    <v-col
-                        col="12"
-                        md="2"
-                        sm="3"
-                        xs="3"
-                    >
-                        <v-icon
-                            color="yellowish"
-                            large
-                            class="font-weight-thin"
-                        >
-                            {{detail.icon}}
-                        </v-icon>
-                    </v-col>
-                    <v-col
-                        col="12"
-                        md="10"
-                        sm="9"
-                        xs="9"
-                    >
-                        <div
-                            class="subtitle-2 font-weight-medium mb-1 text-uppercase"
-                        >
-                            {{detail.title}}
-                        </div>
-                        <div
-                            class="text-p grey--text font-weight-normal mb-1"
-                        >
-                            {{detail.value}}
-                        </div>
-                    </v-col>
-                </v-row>
-            </div>
+            
         </div>
         
     </div>
