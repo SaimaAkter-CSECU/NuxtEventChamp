@@ -197,7 +197,7 @@
                                             v-model="country"
                                             :items="items"
                                             :rules="[v => !!v || 'Country is required']"
-                                            label="Item"
+                                            label="Country"
                                             required
                                             outlined
                                         ></v-select>
@@ -205,7 +205,7 @@
                                             v-model="state"
                                             :items="items2"
                                             :rules="[v => !!v || 'State is required']"
-                                            label="Item"
+                                            label="District"
                                             required
                                             outlined
                                         ></v-select>

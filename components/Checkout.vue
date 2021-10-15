@@ -10,9 +10,9 @@
                         <v-icon
                             color="yellowish" 
                         >
-                            mdi-cart-plus
+                            mdi-ticket
                         </v-icon>
-                        <span class="ml-3">Product Added to You Cart Successfully.</span>
+                        <span class="ml-3">Have a coupon?</span>
                     </div>
 
                     <div class="cart-content">
@@ -352,7 +352,7 @@
                                         Your personal data will be used to process your order, support your experience throughout this website, and for other purposes described in our privacy policy.
                                     </div>
                                     <div class="d-flex justify-end mt-5">
-                                        <NuxtLink to="Cart/OrderReceived">
+                                        <NuxtLink to="OrderReceived">
                                             <v-btn 
                                                 class="btn-yellowish-style mt-9"
                                                 style="letter-spacing:0px;"  
