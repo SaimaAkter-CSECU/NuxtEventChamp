@@ -454,6 +454,44 @@ section#newsletter{
                     }   
                 }
             }
+            .cart-notification-div{
+                border-top: 2px solid #fb0; 
+                background-color: #f9f9f9;
+            }
+            .cart-content{
+                table{
+                    border: 1px solid #eaeaea; 
+                    thead{
+                        height: 5rem; 
+                        th{
+                            border-left: 1px solid #eaeaea; 
+                            border-right: 1px solid #eaeaea; 
+                            border-bottom: 1px solid #eaeaea; 
+                            font-size: 1rem;
+                        }
+                        
+                    }
+                    tbody{
+                        tr{
+                            height: 5rem; 
+                            td{
+                                border-left: 1px solid #eaeaea; 
+                                border-right: 1px solid #eaeaea;
+                                .v-text-field__details{
+                                    display: none; 
+                                }
+                                .v-input__slot{
+                                    margin-bottom: 0;
+                                } 
+                            }
+                            &:hover{
+                                background-color: white !important
+                            }
+                        }
+                    }
+                }
+
+            }
         }
         .author-details{
             color: #222; 

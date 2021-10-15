@@ -42,6 +42,12 @@ section .section-title .v-divider {
 section .slider-card-div .v-card__title:hover {
   color: #fb0;
 }
+section .section-content .v-card .v-card__title {
+  font-weight: 600;
+}
+section .section-content .v-card .v-card__title:hover {
+  color: #fb0;
+}
 section .btn-style {
   border: 1px solid #eaeaea;
   text-transform: uppercase;
@@ -197,6 +203,8 @@ section#upcomingEvent .filters .v-btn-toggle > .v-btn.v-btn--active {
 }
 section#upcomingEvent .filters .v-btn-toggle .v-btn {
   border-color: #fb0 !important;
+  padding-left: 1.5rem !important;
+  padding-right: 1.5rem !important;
 }
 section#upcomingEvent .filters .v-btn-toggle .v-btn:hover {
   color: #fb0 !important;
@@ -204,7 +212,7 @@ section#upcomingEvent .filters .v-btn-toggle .v-btn:hover {
   border-color: #fb0 !important;
 }
 section#upcomingEvent .filters .v-btn-toggle .v-btn:before {
-  background-color: white;
+  display: none;
 }
 
 section#featuredEvent {
@@ -229,6 +237,14 @@ section#eventSearch {
 }
 section#eventSearch .v-text-field__details {
   display: none;
+}
+section#eventSearch .btn-yellowish-style {
+  font-weight: 400;
+  letter-spacing: 0px;
+}
+section#eventSearch .btn-yellowish-style:hover {
+  color: #fb0 !important;
+  background-color: transparent !important;
 }
 
 section#popularVenu {
@@ -263,6 +279,10 @@ section#newsletter .v-input .v-icon {
 }
 section#newsletter .v-input.error--text {
   color: grey;
+}
+section#newsletter .btn-yellowish-style:hover {
+  color: #fb0 !important;
+  background-color: transparent !important;
 }
 
 .subPage {
@@ -312,13 +332,92 @@ section#newsletter .v-input.error--text {
   background-color: #fb0;
   color: #fff;
 }
-.subPage .subPageContent .content-div .photos-div .v-img {
+.subPage .subPageContent .content-div .photos-div .v-image:hover {
   cursor: pointer;
+  transition: 0.2s all ease-in-out;
 }
-.subPage .subPageContent .content-div .photos-div .v-img:hover .overlay {
+.subPage .subPageContent .content-div .photos-div .v-image:hover .overlay {
   background-color: rgba(0, 0, 0, 0.3);
   width: 100%;
   height: 100%;
+  cursor: pointer;
+}
+.subPage .subPageContent .content-div .relatedSpeakers .v-image .overlay {
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.3);
+  color: white;
+}
+.subPage .subPageContent .content-div .relatedSpeakers .v-image .overlay .visibleText {
+  visibility: hidden;
+}
+.subPage .subPageContent .content-div .relatedSpeakers .v-image:hover {
+  transition: 0.5s all ease-in-out;
+}
+.subPage .subPageContent .content-div .relatedSpeakers .v-image:hover .overlay {
+  background-color: rgba(0, 0, 0, 0.7);
+}
+.subPage .subPageContent .content-div .relatedSpeakers .v-image:hover .overlay .visibleText {
+  visibility: visible;
+}
+.subPage .subPageContent .content-div .relatedSpeakers .v-image:hover .overlay .visibleText .v-icon:hover {
+  color: #fb0 !important;
+}
+.subPage .subPageContent .content-div .eventLink:hover {
+  color: #fb0 !important;
+}
+.subPage .subPageContent .content-div .v-tabs {
+  height: 80px;
+}
+.subPage .subPageContent .content-div .v-tabs .v-tabs-bar {
+  height: 80px;
+}
+.subPage .subPageContent .content-div .v-tabs .v-tabs-bar .v-tab {
+  border-right: 1px solid #eaeaea;
+  border-bottom: 1px solid #eaeaea;
+  box-sizing: border-box;
+}
+.subPage .subPageContent .content-div .v-tabs .v-tabs-bar .v-tab span {
+  color: #4a4a4a;
+}
+.subPage .subPageContent .content-div .v-tabs .v-tabs-bar .v-tab:hover {
+  border-bottom: 2px solid #fb0;
+  background-color: white;
+}
+.subPage .subPageContent .content-div .innerTab .v-tabs {
+  height: 80px;
+}
+.subPage .subPageContent .content-div .innerTab .v-tabs .v-tabs-bar {
+  height: 80px;
+}
+.subPage .subPageContent .content-div .innerTab .v-tabs .v-tabs-bar .v-tab {
+  border-right: 1px solid transparent;
+  border-bottom: 1px solid transparent;
+  box-sizing: border-box;
+}
+.subPage .subPageContent .content-div .innerTab .v-tabs .v-tabs-bar .v-tab span {
+  color: white;
+}
+.subPage .subPageContent .content-div .innerTab .v-tabs .v-tabs-bar .v-tab:hover {
+  background-color: transparent;
+}
+.subPage .subPageContent .content-div .cart-notification-div {
+  border-top: 2px solid #fb0;
+  background-color: #f9f9f9;
+}
+.subPage .subPageContent .content-div .cart-content table {
+  border: 1px solid #eaeaea;
+}
+.subPage .subPageContent .content-div .cart-content table thead {
+  height: 50px;
+}
+.subPage .subPageContent .content-div .cart-content table thead th {
+  border-left: 1px solid #eaeaea;
+  border-left: 1px solid #eaeaea;
+  border-bottom: 1px solid #eaeaea;
+}
+.subPage .subPageContent .content-div .cart-content .v-text-field__details {
+  display: none;
 }
 .subPage .subPageContent .author-details {
   color: #222;

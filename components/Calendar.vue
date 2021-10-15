@@ -2,6 +2,39 @@
     <div class="subPageContent">
         <div class="container--fluid">
             <div class="content-div">
+                <div class="search-div my-5">
+                    <v-row>
+                        <v-col
+                            cols="12"
+                            sm="9"
+                            xs="12"
+                            class="pr-0"
+                        >
+                            <v-text-field
+                                v-model="keyword"
+                                
+                                placeholder="Search Event Dates or Event Names...."
+                                block
+                                outlined
+                            ></v-text-field>
+                        </v-col>
+                        <v-col
+                            col="12"
+                            sm="3"
+                            xs="12"
+                        >
+                            <v-btn 
+                                class="btn-yellowish-style"
+                                style="letter-spacing:0px;"  
+                                block
+                                x-large
+                                elevation="0"
+                            >
+                                search
+                            </v-btn>
+                        </v-col>
+                    </v-row>
+                </div>
                 <div
                     v-for="date in dates"
                     :key="date.id"
@@ -468,6 +501,7 @@
                     ]
                 },
             ],
+            keyword: '', 
         }),
     }
 </script>

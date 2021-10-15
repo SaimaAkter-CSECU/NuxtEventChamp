@@ -371,12 +371,13 @@
                                                             ></v-select>
                                                         </v-card-text>
                                                         <v-card-actions class="pt-0 d-flex justify-center">
-                                                            <NuxtLink to="/">
+                                                            <NuxtLink to="../../Cart">
                                                                 <v-btn
                                                                     class="btn-yellowish-style rounded-md"
                                                                     style="letter-spacing:0px;"
                                                                     elevation="0"
                                                                     x-large 
+                                                                    @click="addToCart(ticket.id, ticket.title)"
                                                                 >
                                                                     buy now
                                                                 </v-btn>
@@ -1120,6 +1121,20 @@
             async getSpeaker(id){
                 localStorage.setItem("speakerId", id);
                 console.log(localStorage); 
+            },
+            async addToCart(id, title){
+                if(localStorage.getItem("cart") == null){
+                    let cart = [
+                        {'id': id, 'title': title, 'quantity': 1},
+                    ]
+                    localStorage.setItem("cart", JSON.stringify(cart)); 
+                    console.log(localStorage); 
+                }
+                else{
+                    let cart = JSON.parse(localStorage.getItem("cart") || "[]");
+                    cart.push({id: id, title: title, quantity: 1});
+                    localStorage.setItem("cart", JSON.stringify(cart)); 
+                }
             },
             async validate () {
                 this.$refs.form.validate()
