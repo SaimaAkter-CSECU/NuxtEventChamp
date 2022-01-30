@@ -30,6 +30,7 @@ export default {
   plugins: [
     '~/plugins/vue-awesome-swiper.js',
     '~/plugins/lightGallery.client.js',
+    { src: "~/plugins/vue2-editor", ssr: false }, 
     // { src: '@/plugins/vue-awesome-swiper', mode: 'client' }
   ],
 
@@ -53,7 +54,10 @@ export default {
   // ],
 
   // Modules: https://go.nuxtjs.dev/config-modules
+  // modules: [
+  // ],
   modules: [
+    "vue2-editor/nuxt"
   ],
 
   // Vuetify module configuration: https://go.nuxtjs.dev/config-vuetify

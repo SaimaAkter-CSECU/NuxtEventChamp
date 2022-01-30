@@ -26,6 +26,9 @@ body .container--fluid {
   max-width: 90%;
   margin: 0 auto;
 }
+body .w-100 {
+  width: 100%;
+}
 
 .theme--light.v-btn:hover::before {
   opacity: 0;
@@ -130,6 +133,9 @@ section#header .menu-items .v-icon:hover {
 }
 .signInDialog .v-subheader:hover {
   color: #fb0 !important;
+}
+.signInDialog .userIcon {
+  border: 1px solid #fb0;
 }
 
 section#banner .banner-btn .v-btn {

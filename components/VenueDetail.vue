@@ -15,7 +15,7 @@
                             <div class="venue-details">
                             <v-img
                                 :src="venue.url"
-                                height="650px"
+                                max-height="650px"
                             ></v-img>
                             <div
                                 class="pa-8"

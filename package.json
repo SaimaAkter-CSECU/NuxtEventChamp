@@ -14,6 +14,7 @@
     "swiper": "^5.4.5",
     "vue-awesome-swiper": "^4.1.1",
     "vue-light-gallery": "^1.0.1",
+    "vue2-editor": "^2.10.3",
     "vuetify": "^2.5.5"
   },
   "devDependencies": {

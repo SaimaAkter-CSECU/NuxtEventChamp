@@ -2,7 +2,7 @@
     <div>
         <section 
             id="header"
-            :style="(this.$nuxt.$route.path == '/') ? 'position:fixed; width:100%; z-index: 100;' : 'width:100%;' "
+            :style="(this.$nuxt.$route.path == '/') ? 'position:fixed; width:100%; z-index: 100;' : 'position:fixed; z-index:100;width:100%;' "
         >
             <v-toolbar
                 :color="bgColor"
@@ -80,6 +80,7 @@
                             <v-dialog
                                 transition="dialog-top-transition"
                                 max-width="400"
+                                v-model="dialogLg"
                             >
                                 <template v-slot:activator="{ on, attrs }">
                                     <v-btn
@@ -91,10 +92,11 @@
                                         style="letter-spacing: 0px; font-weight: 400;"
                                         elevation="0"
                                     >
-                                        Sign In
+                                        <span v-show="loggedIn">My Profile</span>
+                                        <span v-show="!loggedIn">Sign In</span>
                                     </v-btn>
                                 </template>
-                                <template v-slot:default="dialog">
+                                <template >
                                     <v-card class="signInDialog">
                                         <v-toolbar
                                             color="white"
@@ -103,6 +105,18 @@
                                             elevation="1"
                                         >
                                             <span
+                                                class="text-h6 font-weight-regular accent--text d-flex justify-center"
+                                                style="width:100%;"
+                                            >
+                                                <span v-if="loggedIn">
+                                                    <span>My Profile</span>
+                                                </span>
+                                                <span v-else>
+                                                    <span v-if="SignInDialog">Sign In</span>
+                                                    <span v-else>Sign Up</span>
+                                                </span>
+                                            </span>
+                                            <!-- <span
                                                 class="text-h6 font-weight-regular accent--text d-flex justify-center"
                                                 style="width:100%;"
                                                 v-if="SignInDialog"
@@ -115,128 +129,186 @@
                                                 v-else
                                             >
                                                 Sign Up
-                                            </span>
+                                            </span> -->
 
                                             <v-btn
                                                 text
-                                                @click="dialog.value = false"
+                                                @click="closeDialog()"
                                             >
                                                 x
                                             </v-btn>
                                         </v-toolbar>
                                         <v-card-text class="pa-5 my-6">
-                                            <div v-if="SignInDialog">
-                                                <v-form
-                                                    ref="signInForm"
-                                                    v-model="valid"
-                                                    lazy-validation
-                                                    class="mx-5"
+                                            <div v-show="loggedIn">
+                                                <div
+                                                    class="w-100 d-flex justify-center"
                                                 >
-                                                    <v-text-field
-                                                        v-model="username"
-                                                        :rules="inputRules"
-                                                        label="Username"
-                                                        outlined
-                                                        required
-                                                    ></v-text-field>
-
-                                                    <v-text-field
-                                                        v-model="password"
-                                                        :type="showPass ? 'text' : 'password'"
-                                                        :rules="inputRules"
-                                                        label="Password"
-                                                        :append-icon="showPass ? 'mdi-eye' : 'mdi-eye-off'"
-                                                        outlined
-                                                        required
-                                                        @click:append="showPass = !showPass"
-                                                    ></v-text-field>
-
-                                                    <v-checkbox
-                                                        v-model="checkbox"
-                                                        label="Remember Me"
-                                                        required
-                                                    ></v-checkbox>
-
-                                                    <v-btn
+                                                    <v-icon
+                                                        x-large
                                                         color="yellowish"
-                                                        class="mr-4 white--text"
-                                                        @click="SignIn"
-                                                        large
-                                                        block
+                                                        class="pa-2 rounded-circle userIcon"
                                                     >
-                                                        Sign In
-                                                    </v-btn>
-                                                </v-form>
+                                                        mdi-account
+                                                    </v-icon>
+                                                </div>
+                                                <v-list>
+                                                    <v-list-item-group
+                                                        v-model="group2"
+                                                        color="yellowish"
+                                                    >
+                                                        <v-list-item
+                                                            v-for="profileItem in profileItems"
+                                                            :key="profileItem.id"
+                                                            @click="closeDialog"
+                                                        >
+                                                            <NuxtLink 
+                                                                :to="profileItem.path"
+                                                                class="d-flex"
+                                                            >
+                                                                <v-list-item-icon>
+                                                                    <v-icon>{{profileItem.icon}}</v-icon>
+                                                                </v-list-item-icon>
+                                                                <v-list-item-content>
+                                                                    <v-list-item-title>{{profileItem.text}}</v-list-item-title>
+                                                                </v-list-item-content>
+                                                            </NuxtLink>
+                                                        </v-list-item>
+                                                    </v-list-item-group>
+                                                </v-list>
                                             </div>
-                                            <div v-else>
-                                                <v-form
-                                                    ref="signInForm"
-                                                    v-model="valid"
-                                                    lazy-validation
-                                                    class="mx-5"
-                                                >
-                                                    <v-text-field
-                                                        v-model="registerUsername"
-                                                        :rules="inputRules"
-                                                        label="Username"
-                                                        outlined
-                                                        required
-                                                    ></v-text-field>
-
-                                                    <v-text-field
-                                                        v-model="email"
-                                                        :rules="emailRules"
-                                                        label="Email" 
-                                                        outlined
-                                                        required
-                                                    ></v-text-field>
-
-                                                    <v-btn
-                                                        color="yellowish"
-                                                        class="mr-4 white--text"
-                                                        @click="SignUp"
-                                                        large
-                                                        block
+                                            
+                                            <div v-show="!loggedIn">
+                                                <div v-if="SignInDialog">
+                                                    <v-form
+                                                        ref="signInForm"
+                                                        v-model="valid"
+                                                        lazy-validation
+                                                        class="mx-5"
                                                     >
-                                                        Sign Up
-                                                    </v-btn>
-                                                </v-form>
+                                                        <v-text-field
+                                                            v-model="username"
+                                                            :rules="inputRules"
+                                                            label="Username"
+                                                            outlined
+                                                            required
+                                                        ></v-text-field>
+
+                                                        <v-text-field
+                                                            v-model="password"
+                                                            :type="showPass ? 'text' : 'password'"
+                                                            :rules="inputRules"
+                                                            label="Password"
+                                                            :append-icon="showPass ? 'mdi-eye' : 'mdi-eye-off'"
+                                                            outlined
+                                                            required
+                                                            @click:append="showPass = !showPass"
+                                                        ></v-text-field>
+
+                                                        <v-checkbox
+                                                            v-model="checkbox"
+                                                            label="Remember Me"
+                                                            required
+                                                        ></v-checkbox>
+
+                                                        <v-btn
+                                                            color="yellowish"
+                                                            class="mr-4 white--text"
+                                                            @click="SignIn"
+                                                            large
+                                                            block
+                                                        >
+                                                            Sign In
+                                                        </v-btn>
+                                                    </v-form>
+                                                </div>
+                                                <div v-else>
+                                                    <v-form
+                                                        ref="signUpForm"
+                                                        v-model="valid"
+                                                        lazy-validation
+                                                        class="mx-5"
+                                                    >
+                                                        <v-text-field
+                                                            v-model="registerUsername"
+                                                            :rules="inputRules"
+                                                            label="Username"
+                                                            outlined
+                                                            required
+                                                        ></v-text-field>
+
+                                                        <v-text-field
+                                                            v-model="email"
+                                                            :rules="emailRules"
+                                                            label="Email" 
+                                                            outlined
+                                                            required
+                                                        ></v-text-field>
+
+                                                        <v-btn
+                                                            color="yellowish"
+                                                            class="mr-4 white--text"
+                                                            @click="SignUp"
+                                                            large
+                                                            block
+                                                        >
+                                                            Sign Up
+                                                        </v-btn>
+                                                    </v-form>
+                                                </div>
                                             </div>
                                         </v-card-text>
                                         <v-card-actions 
                                             class="justify-space-between pa-5"
                                             style="border-top: 1px solid #ececec"
                                         >
-                                            <v-subheader
-                                                class="text-uppercase"
-                                                v-if="SignInDialog"
+                                            <div 
+                                                v-if="loggedIn"
+                                                class="w-100"
                                             >
-                                                Lost Password? 
-                                            </v-subheader>
-                                            <v-subheader
-                                                class="text-uppercase blue-gray--text"
-                                                @click="SignInDialog = true"
-                                                v-else
-                                            >
-                                                Sign In  
-                                            </v-subheader> 
+                                                <div
+                                                    class="d-flex justify-center"
+                                                >
+                                                    <v-btn
+                                                        class="btn-yellowish-style rounded-pill"
+                                                        @click="logOut"
+                                                        elevation="0"
+                                                        large
+                                                    >
+                                                        Log Out
+                                                    </v-btn>
+                                                </div>
+                                            </div>
+                                            <div v-else>
+                                                <v-subheader
+                                                    class="text-uppercase"
+                                                    v-if="SignInDialog"
+                                                >
+                                                    Lost Password? 
+                                                </v-subheader>
+                                                <v-subheader
+                                                    class="text-uppercase blue-gray--text"
+                                                    @click="SignInDialog = true"
+                                                    v-else
+                                                >
+                                                    Sign In  
+                                                </v-subheader> 
 
-
-                                            <v-subheader
-                                                class="text-uppercase blue-gray--text"
-                                                v-if="SignInDialog"
-                                                @click="SignInDialog = false"
-                                            >
-                                                Creat an account 
-                                            </v-subheader> 
-                                            
-                                            <v-subheader
-                                                v-else
-                                                class="text-uppercase"
-                                                @click="dialog.value = false"
-                                            >
-                                                Cancel
-                                            </v-subheader>
+                                                <v-subheader
+                                                    class="text-uppercase blue-gray--text"
+                                                    v-if="SignInDialog"
+                                                    @click="SignInDialog = false"
+                                                >
+                                                    Creat an account 
+                                                </v-subheader> 
+                                                
+                                                <v-subheader
+                                                    v-else
+                                                    class="text-uppercase"
+                                                    @click="closeDialog"
+                                                >
+                                                    Cancel
+                                                </v-subheader>
+                                            </div>
                                         </v-card-actions>
                                     </v-card>
                                 </template>
@@ -257,7 +329,7 @@
             v-model="drawer"
             absolute
             temporary
-            style="z-index: 100" 
+            style="z-index: 100; " 
         >
             <v-list
                 nav
@@ -333,6 +405,7 @@
                     <v-list-item>
                         <v-list-item-title>
                             <v-dialog
+                                v-model="dialog"
                                 transition="dialog-top-transition"
                                 max-width="400"
                             >
@@ -346,7 +419,8 @@
                                         block
                                         large
                                     >
-                                        Sign In
+                                        <span v-show="loggedIn">My Profile</span>
+                                        <span v-show="!loggedIn">Sign In</span>
                                     </v-btn>
                                 </template>
                                 <template v-slot:default="dialog">
@@ -360,16 +434,14 @@
                                             <span
                                                 class="text-h6 font-weight-regular accent--text d-flex justify-center"
                                                 style="width:100%;"
-                                                v-if="SignInDialog"
                                             >
-                                                Sign In
-                                            </span>
-                                            <span
-                                                class="text-h6 font-weight-regular accent--text d-flex justify-center"
-                                                style="width:100%;"
-                                                v-else
-                                            >
-                                                Sign Up
+                                                <span v-if="loggedIn">
+                                                    <span>My Profile</span>
+                                                </span>
+                                                <span v-if="!loggedIn">
+                                                    <span v-if="SignInDialog">Sign In</span>
+                                                    <span v-else>Sign Up</span>
+                                                </span>
                                             </span>
 
                                             <v-btn
@@ -380,118 +452,164 @@
                                             </v-btn>
                                         </v-toolbar>
                                         <v-card-text class="pa-5 my-6">
-                                            <div v-if="SignInDialog">
-                                                <v-form
-                                                    ref="signInForm"
-                                                    v-model="valid"
-                                                    lazy-validation
-                                                    class="mx-5"
-                                                >
-                                                    <v-text-field
-                                                        v-model="username"
-                                                        :rules="inputRules"
-                                                        label="Username"
-                                                        outlined
-                                                        required
-                                                    ></v-text-field>
-
-                                                    <v-text-field
-                                                        v-model="password"
-                                                        :type="showPass ? 'text' : 'password'"
-                                                        :rules="inputRules"
-                                                        label="Password"
-                                                        :append-icon="showPass ? 'mdi-eye' : 'mdi-eye-off'"
-                                                        outlined
-                                                        required
-                                                        @click:append="showPass = !showPass"
-                                                    ></v-text-field>
-
-                                                    <v-checkbox
-                                                        v-model="checkbox"
-                                                        label="Remember Me"
-                                                        required
-                                                    ></v-checkbox>
-
-                                                    <v-btn
-                                                        color="yellowish"
-                                                        class="mr-4 white--text"
-                                                        @click="SignIn"
-                                                        large
-                                                        block
+                                            <div v-show="loggedIn">
+                                                <v-list dense>
+                                                    <v-list-item-group
+                                                        color="primary"
                                                     >
-                                                        Sign In
-                                                    </v-btn>
-                                                </v-form>
+                                                        <v-list-item
+                                                            v-for="profileItem in profileItems"
+                                                            :key="profileItem.id"
+                                                        >
+                                                            <NuxtLink 
+                                                                :to="profileItem.path"
+                                                                class="d-flex"
+                                                            >
+                                                                <v-list-item-icon>
+                                                                    <v-icon>{{profileItem.icon}}</v-icon>
+                                                                </v-list-item-icon>
+                                                                <v-list-item-content>
+                                                                    <v-list-item-title v-text="profileItem.text"></v-list-item-title>
+                                                                </v-list-item-content>
+                                                            </NuxtLink>
+                                                        </v-list-item>
+                                                    </v-list-item-group>
+                                                </v-list>
                                             </div>
-                                            <div v-else>
-                                                <v-form
-                                                    ref="signInForm"
-                                                    v-model="valid"
-                                                    lazy-validation
-                                                    class="mx-5"
-                                                >
-                                                    <v-text-field
-                                                        v-model="registerUsername"
-                                                        :rules="inputRules"
-                                                        label="Username"
-                                                        outlined
-                                                        required
-                                                    ></v-text-field>
-
-                                                    <v-text-field
-                                                        v-model="email"
-                                                        :rules="emailRules"
-                                                        label="Email" 
-                                                        outlined
-                                                        required
-                                                    ></v-text-field>
-
-                                                    <v-btn
-                                                        color="yellowish"
-                                                        class="mr-4 white--text"
-                                                        @click="SignUp"
-                                                        large
-                                                        block
+                                            
+                                            <div v-show="!loggedIn">
+                                                <div v-if="SignInDialog">
+                                                    <v-form
+                                                        ref="signInForm"
+                                                        v-model="valid"
+                                                        lazy-validation
+                                                        class="mx-5"
                                                     >
-                                                        Sign Up
-                                                    </v-btn>
-                                                </v-form>
+                                                        <v-text-field
+                                                            v-model="username"
+                                                            :rules="inputRules"
+                                                            label="Username"
+                                                            outlined
+                                                            required
+                                                        ></v-text-field>
+
+                                                        <v-text-field
+                                                            v-model="password"
+                                                            :type="showPass ? 'text' : 'password'"
+                                                            :rules="inputRules"
+                                                            label="Password"
+                                                            :append-icon="showPass ? 'mdi-eye' : 'mdi-eye-off'"
+                                                            outlined
+                                                            required
+                                                            @click:append="showPass = !showPass"
+                                                        ></v-text-field>
+
+                                                        <v-checkbox
+                                                            v-model="checkbox"
+                                                            label="Remember Me"
+                                                            required
+                                                        ></v-checkbox>
+
+                                                        <v-btn
+                                                            color="yellowish"
+                                                            class="mr-4 white--text"
+                                                            @click="SignIn"
+                                                            large
+                                                            block
+                                                        >
+                                                            Sign In
+                                                        </v-btn>
+                                                    </v-form>
+                                                </div>
+                                                <div v-else>
+                                                    <v-form
+                                                        ref="signInForm"
+                                                        v-model="valid"
+                                                        lazy-validation
+                                                        class="mx-5"
+                                                    >
+                                                        <v-text-field
+                                                            v-model="registerUsername"
+                                                            :rules="inputRules"
+                                                            label="Username"
+                                                            outlined
+                                                            required
+                                                        ></v-text-field>
+
+                                                        <v-text-field
+                                                            v-model="email"
+                                                            :rules="emailRules"
+                                                            label="Email" 
+                                                            outlined
+                                                            required
+                                                        ></v-text-field>
+
+                                                        <v-btn
+                                                            color="yellowish"
+                                                            class="mr-4 white--text"
+                                                            @click="SignUp"
+                                                            large
+                                                            block
+                                                        >
+                                                            Sign Up
+                                                        </v-btn>
+                                                    </v-form>
+                                                </div>
                                             </div>
                                         </v-card-text>
                                         <v-card-actions 
                                             class="justify-space-between pa-5"
                                             style="border-top: 1px solid #ececec"
                                         >
-                                            <v-subheader
-                                                class="text-uppercase"
-                                                v-if="SignInDialog"
+                                            <div 
+                                                v-if="loggedIn"
+                                                class="w-100"
                                             >
-                                                Lost Password? 
-                                            </v-subheader>
-                                            <v-subheader
-                                                class="text-uppercase blue-gray--text"
-                                                @click="SignInDialog = true"
-                                                v-else
-                                            >
-                                                Sign In  
-                                            </v-subheader> 
+                                                <div
+                                                    class="d-flex justify-center"
+                                                >
+                                                    <v-btn
+                                                        class="btn-yellowish-style rounded-pill"
+                                                        @click="logOut"
+                                                        elevation="0"
+                                                        large
+                                                    >
+                                                        Log Out
+                                                    </v-btn>
+                                                </div>
+                                            </div>
+                                            <div v-else>
+                                                <v-subheader
+                                                    class="text-uppercase"
+                                                    v-if="SignInDialog"
+                                                >
+                                                    Lost Password? 
+                                                </v-subheader>
+                                                <v-subheader
+                                                    class="text-uppercase blue-gray--text"
+                                                    @click="SignInDialog = true"
+                                                    v-else
+                                                >
+                                                    Sign In  
+                                                </v-subheader> 
 
 
-                                            <v-subheader
-                                                class="text-uppercase blue-gray--text"
-                                                v-if="SignInDialog"
-                                                @click="SignInDialog = false"
-                                            >
-                                                Creat an account 
-                                            </v-subheader> 
-                                            
-                                            <v-subheader
-                                                v-else
-                                                class="text-uppercase"
-                                                @click="dialog.value = false"
-                                            >
-                                                Cancel
-                                            </v-subheader>
+                                                <v-subheader
+                                                    class="text-uppercase blue-gray--text"
+                                                    v-if="SignInDialog"
+                                                    @click="SignInDialog = false"
+                                                >
+                                                    Creat an account 
+                                                </v-subheader> 
+                                                
+                                                <v-subheader
+                                                    v-else
+                                                    class="text-uppercase"
+                                                    @click="dialog.value = false"
+                                                >
+                                                    Cancel
+                                                </v-subheader>
+                                            </div>
                                         </v-card-actions>
                                     </v-card>
                                 </template>
@@ -501,6 +619,25 @@
                 </v-list-item-group>
             </v-list>
         </v-navigation-drawer>
+
+        <v-snackbar
+            v-model="loginSnackbar"
+            timeout="2000"
+            color="primary"
+        >
+            {{loginSnackbarText}}
+
+            <template v-slot:action="{ attrs }">
+                <v-btn
+                    color="white"
+                    text
+                    v-bind="attrs"
+                    @click="loginSnackbar = false" 
+                >
+                Close
+                </v-btn>
+            </template>
+        </v-snackbar>
     </div>
 </template>
 
@@ -514,13 +651,16 @@
             textColor: 'white--text', 
             btnColor: 'yellowish', 
             elevation : false, 
+            valid: true, 
             SignInDialog : true, 
             dialog: false,
+            dialogLg: false,
             showPass: false, 
             password: '',
             username: '',
             registerUsername: '',
             email: '', 
+            checkbox: false,
             inputRules: [
                 v => !!v || 'This Field is required',
             ],
@@ -530,16 +670,66 @@
 
             ],
             drawer: false, 
-            group: null,  
+            group: null, 
+            group2: null, 
+            users:[
+                {
+                    id: 1,
+                    username: 'Saima',
+                    password: 'Saima', 
+                },
+                {
+                    id: 2,
+                    username: 'Sovon',
+                    password: 'Sovon', 
+                },
+            ],
+            loginSnackbar: false,
+            loginSnackbarText: '', 
+            loggedIn: false,  
+            profileItems: [
+                {
+                    id: 1,
+                    text: 'My Events',
+                    icon: 'mdi-view-grid-outline',
+                    path: '/Profile/MyEvents', 
+                },
+                {
+                    id: 2, 
+                    text: 'My Blogs',
+                    icon: 'mdi-account-outline',
+                    path: '/Profile/MyBlogs', 
+                },
+                {
+                    id: 3, 
+                    text: 'Post an Event',
+                    icon: 'mdi-account-outline',
+                    path: '/Profile/Post-Event', 
+                },
+                {
+                    id: 4, 
+                    text: 'Post a Blog',
+                    icon: 'mdi-account-details-outline',
+                    path: '/Profile/Post-Blog', 
+                },
+            ],
         }),
         mounted() {
             window.onscroll = () => {
                 this.changeColor();
             };
             this.changeColor(); 
+
+            let userLoggedIn = localStorage.getItem('loggedIn'); 
+            if(userLoggedIn){
+                this.loggedIn = true;
+            }
+            else{
+                this.loggedIn = false; 
+            }
         },
         methods: {
-            changeColor() {
+            async changeColor() {
                 if(this.$nuxt.$route.path == '/' || this.$nuxt.$route.path == ''){
                     if (document.body.scrollTop > 120 || document.documentElement.scrollTop > 120) {
                         this.bgColor = 'white';
@@ -561,9 +751,45 @@
                     this.elevation = false;
                 }
             },
-            SignIn(){
-                this.$refs.form.validate()
+            async SignIn(){
+                if(this.$refs.signInForm.validate()){
+                    let user = this.users.find(x=> x.username == this.username && x.password == this.password);
+                    // console.log(user)
+                    if(user){
+                        this.dialog = false; 
+                        this.dialogLg = false; 
+                        this.loginSnackbarText = 'Login Successfully!'; 
+                        this.loginSnackbar = true; 
+                        localStorage.setItem("loggedIn", 'true'); 
+                        this.loggedIn= true; 
+                        this.SignInDialog = false; 
+                        // console.log(localStorage.getItem("loggedIn")); 
+                    }
+                    else{
+                        this.loginSnackbarText = 'Credential Error!'; 
+                        this.loginSnackbar = true; 
+                    }
+                }
+            },
+            async SignUp(){
+                if(this.$refs.signUpForm.validate()){
+                    this.dialog = false; 
+                    this.loginSnackbarText = 'Sign Up Successfully!!!'; 
+                    this.loginSnackbar = true; 
+                }
+            }, 
+            async logOut(){
+                localStorage.setItem("loggedIn", 'false'); 
+                this.loggedIn = false;
+                this.SignInDialog = true; 
+                if(this.$route.path == "/Profile/MyEvents" || this.$route.path == "/Profile/MyBlogs"){
+                    this.$router.push('/'); 
+                }
+            },
+            async closeDialog(){
+                this.dialogLg = false;
             }
-        }
+        },
+        
     }
 </script>

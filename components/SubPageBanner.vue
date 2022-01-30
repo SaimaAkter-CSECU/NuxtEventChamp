@@ -1,5 +1,8 @@
 <template>
-    <div class="subPageBanner">
+    <div 
+        class="subPageBanner"
+        style="margin-top: 64px;"
+    >
         <v-img
             :src="SubPageBanner"
             width="100%"

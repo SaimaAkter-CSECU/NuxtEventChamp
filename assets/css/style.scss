@@ -24,6 +24,9 @@ body{
         max-width: 90%; 
         margin: 0 auto; 
     }
+    .w-100{
+        width: 100%; 
+    }
 }
 .theme--light.v-btn:hover::before {
     opacity: 0;
@@ -145,6 +148,9 @@ section#header{
         &:hover{
             color: #fb0 !important; 
         }
+    }
+    .userIcon{
+        border: 1px solid #fb0;
     }
 }
 
