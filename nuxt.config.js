@@ -4,7 +4,7 @@ export default {
   // Global page headers: https://go.nuxtjs.dev/config-head
   head: {
     titleTemplate: '%s - EventChamp',
-    title: 'EventChamp',
+    title: 'NuxtEventChamp',
     htmlAttrs: {
       lang: 'en'
     },
